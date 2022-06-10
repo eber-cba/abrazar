@@ -1,7 +1,5 @@
 const { Sequelize } = require("sequelize");
-const db = require("../config/database");
-const bcrypt = require("bcrypt");
-
+const db = require("../config/");
 class Familiares extends Sequelize.Model {}
 
 Familiares.init(
@@ -41,9 +39,6 @@ Familiares.init(
       type: Sequelize.STRING,
     },
 
-    salt: {
-      type: Sequelize.STRING,
-    },
   },
   {
     sequelize: db,
@@ -51,19 +46,6 @@ Familiares.init(
   }
 );
 
-Familiares.prototype.hash = function (password, salt) {
-  return bcrypt.hash(password, salt);
-};
-Familiares.beforeCreate((familiares) => {
-  return bcrypt
-    .genSalt(10)
-    .then((salt) => {
-      familiares.salt = salt;
-      return familiares.hash(familiares.password, salt);
-    })
-    .then((hash) => {
-      familiares.password = hash;
-    });
-});
+ 
 
 module.exports = Familiares;

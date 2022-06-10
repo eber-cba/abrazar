@@ -1,6 +1,5 @@
 const { Sequelize } = require("sequelize");
-const db = require("../config/database");
-const bcrypt = require("bcrypt");
+const db = require("../config/index");
 
 class Homeless extends Sequelize.Model {}
 
@@ -15,6 +14,9 @@ Homeless.init(
     },
     edad: {
       type: Sequelize.INTEGER,
+    },
+    genero: {
+      type: Sequelize.STRING,
     },
     nacionalidad: {
       type: Sequelize.STRING,
@@ -42,10 +44,7 @@ Homeless.init(
     },
     foto: {
       type: Sequelize.STRING,
-    },
-    familiares: {
-      type: Sequelize.INTEGER,
-    },
+    },    
     apodo: {
       type: Sequelize.STRING,
     },
@@ -55,10 +54,10 @@ Homeless.init(
     educacion: {
       type: Sequelize.STRING,
     },
-    apodo: {
+    problemasDeSalud: {
       type: Sequelize.STRING,
     },
-    problemasDeSalud: {
+    medicamentos: {
       type: Sequelize.STRING,
     },
     estadoDeAyuda: {
@@ -70,29 +69,12 @@ Homeless.init(
     datoExtra: {
       type: Sequelize.STRING,
     },
-    salt: {
-      type: Sequelize.STRING,
-    },
+   
   },
   {
     sequelize: db,
     tableName: "homeless", // We need to choose the model name
   }
 );
-
-Homeless.prototype.hash = function (password, salt) {
-  return bcrypt.hash(password, salt);
-};
-Homeless.beforeCreate((homeless) => {
-  return bcrypt
-    .genSalt(10)
-    .then((salt) => {
-      homeless.salt = salt;
-      return homeless.hash(homeless.password, salt);
-    })
-    .then((hash) => {
-      homeless.password = hash;
-    });
-});
 
 module.exports = Homeless;
