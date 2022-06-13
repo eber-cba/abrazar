@@ -1,8 +1,8 @@
 const { Sequelize } = require("sequelize");
 const db = require("../config/");
-class Familiares extends Sequelize.Model {}
+class Vinculaciones extends Sequelize.Model {}
 
-Familiares.init(
+Vinculaciones.init(
   {
     nombre: {
       type: Sequelize.STRING,
@@ -26,6 +26,9 @@ Familiares.init(
     ubicacionActual: {
       type: Sequelize.STRING,
     },
+    barrio:{
+      type: Sequelize.STRING,
+    },
     telefono: {
       type: Sequelize.INTEGER,
     },
@@ -42,10 +45,10 @@ Familiares.init(
   },
   {
     sequelize: db,
-    tableName: "familiares", // We need to choose the model name
+    tableName: "Vinculaciones", // We need to choose the model name
   }
 );
 
  
 
-module.exports = Familiares;
+module.exports = Vinculaciones;

@@ -18,6 +18,10 @@ Usuarios.init(
       type: Sequelize.STRING,
       allowNull: false,
     },
+    rol: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0
+    },
     salt: {
       type: Sequelize.STRING,
     },

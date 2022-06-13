@@ -27,24 +27,19 @@ Homeless.init(
     localidad: {
       type: Sequelize.STRING,
     },
-    ubicacionFrecuente: {
-      type: Sequelize.STRING,
-    },
-    otrasUbicaciones: {
-      type: Sequelize.STRING,
-    },
+
     necesidadesUrgentes: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING,//array
     },
     otrasNecesidades: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING,//array
     },
     sueños: {
       type: Sequelize.STRING,
     },
-    foto: {
-      type: Sequelize.STRING,
-    },    
+    fotos: {
+      type: Sequelize.STRING,//array - hasta 3 fotos
+    },
     apodo: {
       type: Sequelize.STRING,
     },
@@ -55,12 +50,12 @@ Homeless.init(
       type: Sequelize.STRING,
     },
     problemasDeSalud: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING, //array
     },
     medicamentos: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING, //array
     },
-    estadoDeAyuda: {
+    situacion: {
       type: Sequelize.STRING,
     },
     telefono: {
@@ -69,7 +64,9 @@ Homeless.init(
     datoExtra: {
       type: Sequelize.STRING,
     },
-   
+    contactoDeEmergencia: {
+      type: Sequelize.INTEGER,
+    },
   },
   {
     sequelize: db,
