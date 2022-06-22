@@ -22,7 +22,7 @@ homelessControllers.findHomeless = (req, res) => {
       {
         model: Vinculaciones,
         as: "vinculacion",
-        attributes: ["nombre", "edad"],
+        attributes: ["nombre", "edad","tipoDeRelacion"],
       },
       {
         model: Direcciones,

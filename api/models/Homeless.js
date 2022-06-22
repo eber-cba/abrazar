@@ -27,7 +27,6 @@ Homeless.init(
     localidad: {
       type: Sequelize.STRING,
     },
-
     necesidadesUrgentes: {
       type: Sequelize.STRING,//array
     },
