@@ -32,16 +32,9 @@ export default function Navbar() {
               </div>
             </div>
           </div>
-          <div className="info">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde
-              blanditiis facere magnam consequuntur libero totam voluptate
-              voluptas sit architecto aut. Ex aliquam veniam similique deserunt,
-              distinctio praesentium numquam laboriosam! Quis?
-            </p>
-          </div>
         </nav>
       </div>
+     
     </div>
   );
 }

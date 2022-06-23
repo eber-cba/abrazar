@@ -1,7 +1,10 @@
-import React from 'react'
+import React from "react";
+import Bienvenida from "../../commons/home/Bienvenida";
 
 export default function Home() {
   return (
-    <div>Home</div>
-  )
+    <div>
+       <Bienvenida/>
+    </div>
+  );
 }
