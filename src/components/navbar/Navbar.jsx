@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./navbar.css";
 export default function Navbar() {
   return (
@@ -26,7 +27,9 @@ export default function Navbar() {
                     <a className="dropdown-item">Logearse</a>
                   </li>
                   <li>
-                    <a className="dropdown-item">Registrarse</a>
+                    <Link to="/register">
+                      <span className="dropdown-item">Registrarse</span>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -34,7 +37,6 @@ export default function Navbar() {
           </div>
         </nav>
       </div>
-     
     </div>
   );
 }

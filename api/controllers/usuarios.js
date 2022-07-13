@@ -12,19 +12,7 @@ class usuariosControllers {
     }
   }
 
-  static async login(req, res, next) {
-    res.json(req.user);
-  }
-  static async logout(req, res, next) {
-    req.logOut();
-    res.sendStatus(200);
-  }
-  static async getLogged(req, res, next) {
-    if (req.user) {
-      req.user = await Usuarios.findOne({ id: req.user._id });
-      return res.send(req.user);
-    } else return res.sendStatus(401);
-  }
+ 
 
   static async deleteUsuarios(req, res, next) {
     try {
