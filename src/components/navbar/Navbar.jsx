@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Register from "../../commons/register/Register";
 import "./navbar.css";
 export default function Navbar() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <div>
@@ -27,9 +31,10 @@ export default function Navbar() {
                     <a className="dropdown-item">Logearse</a>
                   </li>
                   <li>
-                    <Link to="/register">
-                      <span className="dropdown-item">Registrarse</span>
-                    </Link>
+                    <span onClick={handleOpen} className="dropdown-item">
+                      Registrarse
+                    </span>
+                    <Register open={open} handleClose={handleClose} />
                   </li>
                 </ul>
               </div>
