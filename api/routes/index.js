@@ -6,7 +6,9 @@ const vinculaciones = require("./vinculaciones");
 const direcciones = require("./direcciones");
 const comentarios = require("./comentarios");
 const notificaciones = require("./notificaciones");
+const auth = require("./auth");
 
+router.use("/auth", auth);
 router.use("/usuarios", usuarios);
 router.use("/homeless", homeless);
 router.use("/vinculaciones", vinculaciones);

@@ -12,8 +12,6 @@ class usuariosControllers {
     }
   }
 
- 
-
   static async deleteUsuarios(req, res, next) {
     try {
       Usuarios.destroy({ where: { id: req.params.id } }).then(() =>
@@ -22,6 +20,17 @@ class usuariosControllers {
     } catch (err) {
       return next(err);
     }
+  }
+  static async login(req, res) {
+    await res.send(req.user);
+  }
+  static async afterLogin(req, res) {
+    if (!req.user) return await res.sendStatus(401);
+    res.send(req.user);
+  }
+  static async logout(req, res) {
+    req.logout();
+    await res.status(200).send({});
   }
   static async findUsuarios(req, res, next) {
     try {

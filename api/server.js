@@ -8,10 +8,13 @@ const LocalStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 const passport = require("passport");
+const morgan = require('morgan')
+
 require('./config/association')
 
 // parsing middleware
 
+app.use(morgan('tiny'))
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

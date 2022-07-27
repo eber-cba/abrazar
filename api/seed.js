@@ -241,53 +241,61 @@ const direcciones = [
 ];
 const users = [
   {
-    nombre: "eber",
+    name: "eber",
     email: "ebercoronel29@gmail.com",
     password: "1245",
     rol: 1,
   },
-  { nombre: "maria", email: "maria@gmail.com", password: "a1245" },
-  { nombre: "cacho", email: "cacho@gmail.com", password: "1234" },
+  { name: "maria", email: "maria@gmail.com", password: "a1245" },
+  { name: "cacho", email: "cacho@gmail.com", password: "1234" },
 ];
 
 const comentarios = [
   {
-    post:"este es mi primer comentario",usuariosId:1
+    post: "este es mi primer comentario",
+    usuariosId: 1,
   },
   {
-    post:"este es mi segundo comentario",usuariosId:1
+    post: "este es mi segundo comentario",
+    usuariosId: 1,
   },
   {
-    post:"este es mi tercer comentario",usuariosId:1
+    post: "este es mi tercer comentario",
+    usuariosId: 1,
   },
   {
-    post:"este es mi primer comentario",usuariosId:2
+    post: "este es mi primer comentario",
+    usuariosId: 2,
   },
   {
-    post:"este es mi segundo comentario",usuariosId:2
+    post: "este es mi segundo comentario",
+    usuariosId: 2,
   },
   {
-    post:"este es mi tercer comentario",usuariosId:2
+    post: "este es mi tercer comentario",
+    usuariosId: 2,
   },
   {
-    post:"este es mi primer comentario",usuariosId:3
+    post: "este es mi primer comentario",
+    usuariosId: 3,
   },
   {
-    post:"este es mi segundo comentario",usuariosId:3
+    post: "este es mi segundo comentario",
+    usuariosId: 3,
   },
 ];
 
-const notificaciones =[
+const notificaciones = [
   {
-    postId:1 // usuarioId 1 tendra 3 notificaciones
+    postId: 1, // usuarioId 1 tendra 3 notificaciones
   },
   {
-    postId:2 // usuarioId 2 tendra 2 notificaciones
+    postId: 2, // usuarioId 2 tendra 2 notificaciones
   },
   {
-    postId:3 // usuarioId 3 tendra 2 notificaciones
-  }
-]
+    postId: 3, // usuarioId 3 tendra 2 notificaciones
+  },
+];
 
 sequelize
   .sync({ force: false })
@@ -311,7 +319,9 @@ sequelize
     comentarios.forEach((comentario) => Comentarios.create(comentario));
   })
   .then(() => {
-    notificaciones.forEach((notificacion) => Notificaciones.create(notificacion));
+    notificaciones.forEach((notificacion) =>
+      Notificaciones.create(notificacion)
+    );
   })
   .then(() => {
     Usuarios.bulkCreate(users);

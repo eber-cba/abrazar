@@ -6,7 +6,7 @@ class Usuarios extends Sequelize.Model {}
 
 Usuarios.init(
   {
-    nombre: {
+    name: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -28,7 +28,7 @@ Usuarios.init(
   },
   {
     sequelize: db,
-    tableName: "usuarios", // We need to choose the model name
+    modelName: "user", // We need to choose the model name
   }
 );
 

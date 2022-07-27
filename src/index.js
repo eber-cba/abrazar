@@ -7,11 +7,15 @@ import { BrowserRouter } from "react-router-dom";
 import "../node_modules/primereact/resources/themes/bootstrap4-dark-purple/theme.css";
 import "../node_modules/primereact/resources/primereact.min.css"; //core css
 import "../node_modules/primeicons/primeicons.css";
+import { Provider } from "react-redux";
+import Store from "./redux/Store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter> 
+  <Provider store={Store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
