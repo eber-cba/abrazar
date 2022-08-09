@@ -21,8 +21,8 @@ class usuariosControllers {
       return next(err);
     }
   }
-  static async login(req, res) {
-    await res.send(req.user);
+  static async login(req, res, next) {
+    res.json(req.user);
   }
   static async afterLogin(req, res) {
     if (!req.user) return await res.sendStatus(401);

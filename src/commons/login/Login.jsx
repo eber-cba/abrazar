@@ -1,32 +1,25 @@
 import React from "react";
 import { InputText } from "primereact/inputtext";
-import { Password } from "primereact/password";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
 import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
-import { register } from "../../redux/users";
+import { login } from "../../redux/users";
+import axios from "axios";
 
-
-import "./register.css";
-
-export default function Register({ open, handleClose }) {
+export default function Login({ openLogin, handleCloseLogin }) {
   const dispatch = useDispatch();
-
-  const name = useInput("");
   const email = useInput("");
   const password = useInput("");
-
-  //
   let form = {
-    name: name.value,
     email: email.value,
     password: password.value,
   };
+
   //
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(register({ form: form }))
+    dispatch(login({ form: form }))
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   };
@@ -34,36 +27,41 @@ export default function Register({ open, handleClose }) {
   return (
     <div>
       <Dialog
-        header="Registro"
-        visible={open}
-        onHide={handleClose}
+        header="Loggin"
+        visible={openLogin}
+        onHide={handleCloseLogin}
         breakpoints={{ "960px": "75vw" }}
         style={{ width: "50vw" }}
       >
         <div className="container col-lg-8 col-md col-sm-12">
           <form onSubmit={handleSubmit} className="form">
             <div className="input-group mb-3 grupos">
-              <span className="p-float-label">
-                <InputText name="name" id="nombre" {...name} />
-                <label htmlFor="nombre">Nombre</label>
-              </span>
-            </div>
-            <div className="input-group mb-3 grupos">
-              <span className="p-float-label">
-                <InputText id="mail" name="email" {...email} />
-                <label htmlFor="mail">Email</label>
-              </span>
-            </div>
-            <div className="input-group mb-3 grupos">
-              <span className="p-float-label">
-                <Password
-                  id="contraseña"
-                  autoComplete="on"
-                  name="password"
-                  {...password}
+              <label>
+                Email
+                <input
+                  style={{ fontFamily: "roboto condensed" }}
+                  type="email"
+                  className="form-control"
+                  id="floatingInput"
+                  placeholder="name@example.com"
+                  pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+                  {...email}
+                  required
                 />
-                <label htmlFor="contraseña">Contraseña</label>
-              </span>
+              </label>
+            </div>
+            <div className="input-group mb-3 grupos">
+              <label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="floatingPassword"
+                  placeholder="Password"
+                  {...password}
+                  required
+                />
+                Contraseña
+              </label>
             </div>
             <div className="input-group mb-3 grupos">
               <Button type="submit" label="Guardar" />

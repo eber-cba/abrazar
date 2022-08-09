@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Register from "../../commons/register/Register";
+import Login from "../../commons/login/Login";
 import "./navbar.css";
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [openLogin, setOpenLogin] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleOpenLogin = () => setOpenLogin(true);
+  const handleCloseLogin = () => setOpenLogin(false);
   return (
     <div>
       <div>
@@ -28,7 +33,10 @@ export default function Navbar() {
                   aria-labelledby="dropdownMenuButton1"
                 >
                   <li>
-                    <a className="dropdown-item">Logearse</a>
+                    <span onClick={handleOpenLogin} className="dropdown-item">
+                      Logearse
+                    </span>
+                    <Login openLogin={openLogin} handleCloseLogin={handleCloseLogin} />
                   </li>
                   <li>
                     <span onClick={handleOpen} className="dropdown-item">

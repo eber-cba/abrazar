@@ -4,52 +4,40 @@ const cors = require("cors");
 const Usuarios = require("./models/Usuarios");
 const db = require("./config/index");
 const router = require("./routes/index");
-const LocalStrategy = require("passport-local").Strategy;
+const localStrategy = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 const passport = require("passport");
-const morgan = require('morgan')
+const morgan = require("morgan");
 
-require('./config/association')
+require("./config/association");
 
 // parsing middleware
 
-app.use(morgan('tiny'))
+app.use(morgan("tiny"));
 app.use(cors());
-app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use("/api", router);
+app.use(express.json());
 app.use(cookieParser());
-app.use(
-  sessions({
-    secret: "eber",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(sessions({ secret: "secret", saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.authenticate("session"));
+
 passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-    },
+  new localStrategy(
+    { usernameField: "email", passwordField: "password" },
     function (email, password, done) {
-      Usuarios.findOne({ where: { email } })
-        .then((user) => {
-          if (!user) {
-            return done(null, false); // user not found
+      Usuarios.findOne({ where: { email: email } }).then((user) => {
+        if (!user) {
+          return done("Email incorrecto", false);
+        }
+        user.hash(password, user.salt).then((hash) => {
+          if (hash !== user.password) {
+            return done("Clave incorrecta", false);
           }
-          user.hash(password, user.salt).then((hash) => {
-            if (hash !== user.password) {
-              return done(null, false); // invalid password
-            }
-            done(null, user); // success :D
-          });
-        })
-        .catch(done);
+          return done(null, user);
+        });
+      });
     }
   )
 );
@@ -58,7 +46,7 @@ passport.serializeUser(function (users, done) {
 });
 
 passport.deserializeUser(function (id, done) {
-  User.findByPk(id).then((users) => done(null, users));
+  Usuarios.findByPk(id).then((users) => done(null, users));
 });
 
 app.get("/", function (req, res, next) {
@@ -68,7 +56,8 @@ app.get("/", function (req, res, next) {
 app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
- 
+
+app.use("/api", router);
 db.sync({ force: false })
   .then(function () {
     app.listen(8080, () =>
@@ -76,5 +65,5 @@ db.sync({ force: false })
     );
   })
   .catch(console.error);
-  
-  module.exports = app;
+
+module.exports = app;
