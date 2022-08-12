@@ -7,7 +7,6 @@ import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/users";
 
-
 import "./register.css";
 
 export default function Register({ open, handleClose }) {
@@ -56,12 +55,7 @@ export default function Register({ open, handleClose }) {
             </div>
             <div className="input-group mb-3 grupos">
               <span className="p-float-label">
-                <Password
-                  id="contraseña"
-                  autoComplete="on"
-                  name="password"
-                  {...password}
-                />
+                <Password id="contraseña" name="password" {...password} />
                 <label htmlFor="contraseña">Contraseña</label>
               </span>
             </div>

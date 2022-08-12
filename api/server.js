@@ -41,12 +41,12 @@ passport.use(
     }
   )
 );
-passport.serializeUser(function (users, done) {
-  done(null, users.id);
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  Usuarios.findByPk(id).then((users) => done(null, users));
+  Usuarios.findByPk(id).then((user) => done(null, user));
 });
 
 app.get("/", function (req, res, next) {

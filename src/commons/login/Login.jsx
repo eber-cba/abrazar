@@ -5,7 +5,7 @@ import { Button } from "primereact/button";
 import useInput from "../../hooks/useInput";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/users";
-import axios from "axios";
+import { logout } from "../../redux/users";
 
 export default function Login({ openLogin, handleCloseLogin }) {
   const dispatch = useDispatch();
@@ -22,6 +22,10 @@ export default function Login({ openLogin, handleCloseLogin }) {
     dispatch(login({ form: form }))
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
+  };
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout());
   };
 
   return (
@@ -52,14 +56,7 @@ export default function Login({ openLogin, handleCloseLogin }) {
             </div>
             <div className="input-group mb-3 grupos">
               <label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="floatingPassword"
-                  placeholder="Password"
-                  {...password}
-                  required
-                />
+                <input type="password" {...password} required />
                 Contraseña
               </label>
             </div>
@@ -67,6 +64,7 @@ export default function Login({ openLogin, handleCloseLogin }) {
               <Button type="submit" label="Guardar" />
             </div>
           </form>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </Dialog>
     </div>

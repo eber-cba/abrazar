@@ -21,17 +21,22 @@ class usuariosControllers {
       return next(err);
     }
   }
-  static async login(req, res, next) {
+  static login(req, res, next) {
     res.json(req.user);
   }
-  static async afterLogin(req, res) {
-    if (!req.user) return await res.sendStatus(401);
+  static afterLogin(req, res) {
+    if (!req.user) return res.sendStatus(401);
     res.send(req.user);
   }
-  static async logout(req, res) {
-    req.logout();
-    await res.status(200).send({});
+  static logout(req, res) {
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
   }
+
   static async findUsuarios(req, res, next) {
     try {
       await Usuarios.findAll({

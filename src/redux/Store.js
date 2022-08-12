@@ -5,7 +5,7 @@ import usersReducer from "./users";
 const Store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   reducer: {
-    users: usersReducer,
+    user: usersReducer,
   },
 });
 
