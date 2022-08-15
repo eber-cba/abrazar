@@ -7,15 +7,15 @@ export default function Bienvenida() {
       <div>
         <div
           id="carouselExampleCaptions"
-          class="carousel slide carousel-fade"
+          className="carousel slide carousel-fade"
           data-bs-ride="carousel"
         >
-          <div class="carousel-indicators">
+          <div className="carousel-indicators">
             <button
               type="button"
               data-bs-target="#carouselExampleCaptions"
               data-bs-slide-to="0"
-              class="active"
+              className="active"
               aria-current="true"
               aria-label="Slide 1"
             ></button>
@@ -32,40 +32,40 @@ export default function Bienvenida() {
               aria-label="Slide 3"
             ></button>
           </div>
-          <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="4000">
+          <div className="carousel-inner">
+            <div className="carousel-item active" data-bs-interval="4000">
               <img
                 src="https://static.dw.com/image/55439071_303.jpg"
-                class="d-block w-100"
+                className="d-block w-100"
                 alt="..."
               />
-              <div class="carousel-caption d-none d-md-block">
+              <div className="carousel-caption d-none d-md-block">
                 <h5>First slide label</h5>
                 <p>
                   Some representative placeholder content for the first slide.
                 </p>
               </div>
             </div>
-            <div class="carousel-item" data-bs-interval="4000">
+            <div className="carousel-item" data-bs-interval="4000">
               <img
                 src="https://thephiladelphiacitizen.org/wp-content/uploads/2019/11/how-ot-help-the-homeless-philadelphia.jpg"
-                class="d-block w-100"
+                className="d-block w-100"
                 alt="..."
               />
-              <div class="carousel-caption d-none d-md-block">
+              <div className="carousel-caption d-none d-md-block">
                 <h5>Second slide label</h5>
                 <p>
                   Some representative placeholder content for the second slide.
                 </p>
               </div>
             </div>
-            <div class="carousel-item" data-bs-interval="4000">
+            <div className="carousel-item" data-bs-interval="4000">
               <img
                 src="https://media.istockphoto.com/photos/homeless-man-on-the-street-picture-id175380307"
-                class="d-block w-100"
+                className="d-block w-100"
                 alt="..."
               />
-              <div class="carousel-caption d-none d-md-block">
+              <div className="carousel-caption d-none d-md-block">
                 <h5>Third slide label</h5>
                 <p>
                   Some representative placeholder content for the third slide.
@@ -74,22 +74,22 @@ export default function Bienvenida() {
             </div>
           </div>
           <button
-            class="carousel-control-prev"
+            className="carousel-control-prev"
             type="button"
             data-bs-target="#carouselExampleCaptions"
             data-bs-slide="prev"
           >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Previous</span>
           </button>
           <button
-            class="carousel-control-next"
+            className="carousel-control-next"
             type="button"
             data-bs-target="#carouselExampleCaptions"
             data-bs-slide="next"
           >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="visually-hidden">Next</span>
           </button>
         </div>
       </div>
