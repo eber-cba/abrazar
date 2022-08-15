@@ -21,12 +21,12 @@ class usuariosControllers {
       return next(err);
     }
   }
+ 
   static login(req, res, next) {
     res.json(req.user);
   }
   static afterLogin(req, res) {
-    if (!req.user) return res.sendStatus(401);
-    res.send(req.user);
+    req.user ? res.send(req.user) : res.sendStatus(401);
   }
   static logout(req, res) {
     req.logout(function (err) {

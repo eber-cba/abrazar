@@ -15,39 +15,53 @@ require("./config/association");
 // parsing middleware
 
 app.use(morgan("tiny"));
-app.use(cors());
-app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cors());
+
 app.use(cookieParser());
-app.use(sessions({ secret: "secret", saveUninitialized: true, resave: true }));
+app.use(
+  sessions({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
 app.use(passport.initialize());
-app.use(passport.authenticate("session"));
+app.use(passport.session());
 
 passport.use(
   new localStrategy(
     { usernameField: "email", passwordField: "password" },
     function (email, password, done) {
-      Usuarios.findOne({ where: { email: email } }).then((user) => {
-        if (!user) {
-          return done("Email incorrecto", false);
-        }
-        user.hash(password, user.salt).then((hash) => {
-          if (hash !== user.password) {
-            return done("Clave incorrecta", false);
+      Usuarios.findOne({ where: { email: email } })
+        .then((user) => {
+          if (!user) {
+            return done(null, false);
           }
-          return done(null, user);
+          user.hash(password, user.salt).then((hash) => {
+            if (hash !== user.password) {
+              return done(null, false);
+            }
+            return done(null, user);
+          });
+        })
+        .catch((error) => {
+          done(error);
         });
-      });
     }
   )
 );
+
 passport.serializeUser(function (user, done) {
   done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
-  Usuarios.findByPk(id).then((user) => done(null, user));
+  Usuarios.findByPk(id).then((user) => done(null, user)).catch(done);
 });
+ 
+app.use("/api", router);
 
 app.get("/", function (req, res, next) {
   res.send("bienvenide comandante");
@@ -57,7 +71,6 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-app.use("/api", router);
 db.sync({ force: false })
   .then(function () {
     app.listen(8080, () =>

@@ -5,7 +5,7 @@ const passport = require("passport");
 const usuariosControllers = require("../controllers/usuarios");
 
 router.post("/register", usuariosControllers.createUsuarios);
-router.post("/login",passport.authenticate("local"),usuariosControllers.login);
+router.post("/login",passport.authenticate("local",{ failureRedirect: '/login', failureMessage: true }),usuariosControllers.login);
 router.get("/me", usuariosControllers.afterLogin); //para la persistencia de usuario
 router.post("/logout", usuariosControllers.logout);
 router.get("/", usuariosControllers.findUsuarios);
