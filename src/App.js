@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {setUser} from "./redux/users"
 import { afterLogin } from "./redux/users";
-import Layout from "./components/Layout";
 import Navbar from "./components/navbar/Navbar";
+import Home from "./components/home/Home";
+import PerfilUser from './components/perfilUser/PerfilUser';
+import AddHomeless from './components/homeless/AddHomeless';
 function App() {
   const dispatch = useDispatch();
 
@@ -17,7 +19,10 @@ function App() {
     <div className="App">
       <Navbar />
       <Routes>
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/MiPerfil" element={<PerfilUser />} />
+        <Route path="/AddHomeless" element={<AddHomeless />} />
+
       </Routes>
     </div>
   );

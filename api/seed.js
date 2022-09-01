@@ -297,32 +297,32 @@ const notificaciones = [
   },
 ];
 
-sequelize
-  .sync({ force: false })
-  .then(() => {
-    // Conexión establecida
-    console.log("Conexión establecida...");
-  })
+// sequelize
+//   .sync({ force: false })
+//   .then(() => {
+//     // Conexión establecida
+//     console.log("Conexión establecida...");
+//   })
 
-  .then(() => {
-    // Rellenar homeless
-    homeless.forEach((homeles) => Homeless.create(homeles));
-  })
-  .then(() => {
-    // Rellenar direcciones
-    direcciones.forEach((direccion) => Direcciones.create(direccion));
-  })
-  .then(() => {
-    vinculaciones.forEach((vinculos) => Vinculaciones.create(vinculos));
-  })
-  .then(() => {
-    comentarios.forEach((comentario) => Comentarios.create(comentario));
-  })
-  .then(() => {
-    notificaciones.forEach((notificacion) =>
-      Notificaciones.create(notificacion)
-    );
-  })
-  .then(() => {
-    Usuarios.bulkCreate(users);
-  });
+//   .then(() => {
+//     // Rellenar homeless
+//     homeless.forEach((homeles) => Homeless.create(homeles));
+//   })
+//   .then(() => {
+//     // Rellenar direcciones
+//     direcciones.forEach((direccion) => Direcciones.create(direccion));
+//   })
+//   .then(() => {
+//     vinculaciones.forEach((vinculos) => Vinculaciones.create(vinculos));
+//   })
+//   .then(() => {
+//     comentarios.forEach((comentario) => Comentarios.create(comentario));
+//   })
+//   .then(() => {
+//     notificaciones.forEach((notificacion) =>
+//       Notificaciones.create(notificacion)
+//     );
+//   })
+//   .then(() => {
+//     Usuarios.bulkCreate(users);
+//   });

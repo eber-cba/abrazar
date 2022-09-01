@@ -1,0 +1,9 @@
+.bienvenida{
+    display: flex;
+    justify-content: center;
+}
+.seleccion{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10%;
+}

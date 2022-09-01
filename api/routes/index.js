@@ -6,6 +6,7 @@ const vinculaciones = require("./vinculaciones");
 const direcciones = require("./direcciones");
 const comentarios = require("./comentarios");
 const notificaciones = require("./notificaciones");
+const regiones = require("./regiones")
 
 router.use("/usuarios", usuarios);
 router.use("/homeless", homeless);
@@ -13,4 +14,6 @@ router.use("/vinculaciones", vinculaciones);
 router.use("/direcciones", direcciones);
 router.use("/comentarios", comentarios);
 router.use("/notificaciones", notificaciones);
+router.use("/regiones", regiones);
+
 module.exports = router;
