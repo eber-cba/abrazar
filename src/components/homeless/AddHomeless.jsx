@@ -7,13 +7,15 @@ import useInput from "../../hooks/useInput";
 import "./addHomeless.css";
 export default function AddHomeless() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
   const img = useInput("");
   const paiz = useInput("");
   const nombre = useInput("");
   const apellido = useInput("");
   const edad = useInput("");
   const apodo = useInput("");
-  const sexo = useInput("");
+  const [genero, setGenero] = useState("Prefiero no decirlo");
   const [countries, setCountries] = useState([]);
   const [provi, setProvi] = useState([]);
   const [locali, setLocali] = useState([]);
@@ -22,16 +24,13 @@ export default function AddHomeless() {
   const necesidadUrgente = useInput("");
   const otraNecesidad = useInput("");
   const sueños = useInput("");
-  const trabaja = useInput("");
+  const trabajo = useInput("");
   const educacion = useInput("");
   const problemaDeSalud = useInput("");
   const medicamentos = useInput("");
-
-  // const data = (axios
-  //   .")
-  //   .then((res)=> console.log(res.data))
-  //   )
-
+  const telefono = useInput("");
+  const datoExtra = useInput("");
+  const situacion = useInput("");
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -46,15 +45,10 @@ export default function AddHomeless() {
   useEffect(() => {
     axios
       .get(
-        `https://apis.datos.gob.ar/georef/api/departamentos?provincia=Cordoba`
+        `https://apis.datos.gob.ar/georef/api/departamentos?provincia=${provincia.value}&max=1000`
       )
-      .then((res) => setLocali(res.data));
-  }, []);
-
- console.log("departament1", locali.departamentos.length =26);
-
-  console.log("departament2",locali.departamentos);
-
+      .then((res) => setLocali(res.data.departamentos));
+  }, [provincia.value]);
 
   const paises = countries.sort(function (a, b) {
     if (a.name.common > b.name.common) {
@@ -66,19 +60,8 @@ export default function AddHomeless() {
     // a must be equal to b
     return 0;
   });
-  // const provincias= provi.provincias.sort(function (a, b) {
 
-  //   if (a.nombre > b.nombre) {
-  //     return 1;
-  //   }
-  //   if (a.nombre < b.nombre) {
-  //     return -1;
-  //   }
-  //   // a must be equal to b
-  //   return 0;
-  // });
-
-  console.log("¿ARGENTINA? =>", paises[9]);
+  // console.log("¿ARGENTINA? =>", paises[9]);
   let form = {
     nacionalidad: paiz.value,
     img: img.value,
@@ -86,16 +69,21 @@ export default function AddHomeless() {
     apellido: apellido.value,
     edad: edad.value,
     apodo: apodo.value,
-    sexo: sexo.value,
+    genero: genero,
     provincia: provincia.value,
     localidad: localidad.value,
-    necesidadUrgente: necesidadUrgente.value,
-    otraNecesidad: otraNecesidad.value,
+    necesidadesUrgentes: necesidadUrgente.value,
+    otrasNecesidades: otraNecesidad.value,
     sueños: sueños.value,
-    trabaja: trabaja.value,
+    trabajo: trabajo.value,
     educacion: educacion.value,
-    problemaDeSalud: problemaDeSalud.value,
+    problemasDeSalud: problemaDeSalud.value,
     medicamentos: medicamentos.value,
+    usuariosId: user.id,
+    telefono: telefono.value,
+    datoExtra: datoExtra.value,
+
+    // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,6 +91,20 @@ export default function AddHomeless() {
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   };
+  /**
+   * agregar-=>
+   * contactoDeEmergencia
+   * *datoExtra[listo]
+   * *fotos[listo]
+   * *genero[listo]
+   * *necesidadesUrgentes[listo]
+   * *otrasNecesidades[listo]
+   * *probelmasDeSalud[listo]
+   * situacion
+   * *telefono[listo]
+   * *trabajo[listo]
+   * *educacion[listo]
+   */
 
   return (
     <div>
@@ -113,8 +115,19 @@ export default function AddHomeless() {
         <form onSubmit={handleSubmit}>
           <div className="container">
             <div className="imagenes">
-              <label htmlFor="img">Subir imagen</label>
-              <input id="img" type="file" {...img} />
+              <label htmlFor="fotoDePerfil" className="label">
+                <p>IMAGEN DE PERFIL</p>
+                <input
+                  accept="image/*"
+                  id="fotoDePerfil"
+                  multiple
+                  type="file"
+                  name="fotoDePerfil"
+                />
+                <button variant="contained" component="span">
+                  Cargar
+                </button>
+              </label>
             </div>
             <div className="section1">
               <label>
@@ -138,10 +151,24 @@ export default function AddHomeless() {
                 <label>
                   Sexo:
                   <label>
-                    <input type="radio" name="sexo" {...sexo} /> F
+                    <input
+                      id="radio-button"
+                      name="genero"
+                      type="radio"
+                      value={genero}
+                      onChange={() => setGenero("Masculino")}
+                    />
+                    Masculino
                   </label>
                   <label>
-                    <input type="radio" name="sexo" {...sexo} /> M
+                    <input
+                      id="radio-button"
+                      name="genero"
+                      type="radio"
+                      value={genero}
+                      onChange={() => setGenero("Femenino")}
+                    />
+                    Femenino
                   </label>
                 </label>
               </div>
@@ -171,7 +198,11 @@ export default function AddHomeless() {
                 Localidad:
                 <select {...localidad} name="localidad" id="localidad">
                   <option></option>
-               
+                  {locali.map((localid, i) => (
+                    <option key={i} value={localid.nombre}>
+                      {localid.nombre}
+                    </option>
+                  ))}
                 </select>
               </label>
 
@@ -190,11 +221,11 @@ export default function AddHomeless() {
 
               <label for="educacion">Educacion:</label>
 
-              <select name="educacion" id="educacion">
-                <option {...educacion}>Primaria incompleta</option>
-                <option {...educacion}>Secundaria incompleta</option>
-                <option {...educacion}>Secundaria Completa</option>
-                <option {...educacion}>Tecnicatura/Universidad</option>
+              <select name="educacion" id="educacion" {...educacion}>
+                <option>Primaria incompleta</option>
+                <option>Secundaria incompleta</option>
+                <option>Secundaria Completa</option>
+                <option>Tecnicatura/Universidad</option>
               </select>
               <label>
                 Problemas de salud:
@@ -205,8 +236,40 @@ export default function AddHomeless() {
                 <input className="inputs" type="text" {...medicamentos} />
               </label>
               <label>
-                ¿Trabaja?:
-                <input className="inputs" type="text" {...trabaja} />
+                ¿Trabajo?:
+                <input className="inputs" type="text" {...trabajo} />
+              </label>
+              <label>
+                Telefono:
+                <input className="inputs" type="number" {...telefono} />
+              </label>
+
+              <div className="nroDeContacto">
+                <select name="nroDeContacto" id="nroDeContacto" {...educacion}>
+                  <option>Familiar</option>
+                  <option>Pareja</option>
+                  <option>Amigx</option>
+                  <option>Conocidx</option>
+                  <option>Otro</option>
+                </select>
+                <label>
+                Contacto de emergencia:
+                <input className="inputs" type="number" {...telefono} />
+              </label>
+              </div>
+
+              <label for="situacion">Situacion:</label>
+
+              <select name="situacion" id="situacion" {...situacion}>
+                <option>Urgente</option> // esta siendo asistido por tantas
+                personas
+                <option>Moderada</option>
+                <option>Estable</option>
+              </select>
+
+              <label>
+                Dato Extra:
+                <textarea required name="datoExtra" {...datoExtra}></textarea>
               </label>
             </div>
             <div className="boton1">
@@ -227,3 +290,20 @@ export default function AddHomeless() {
     </div>
   );
 }
+/**
+ * *AGREGAR
+ *
+ * Un usuarix deberia poder ""seguir"" a un homeless.
+ * averiguar como hacer para saber cuantos usuarios seguidores tiene un homeless
+ * se deberia ver en la vista general de homeless un boton a cada uno que diga "seguir"
+ *
+ * en base a la cantidad de seguidores que tenga un homeless se le medira su situacion
+ * por ejemplo;
+ * + de 5  = estable
+ * < o = a 3 = moderado
+ * 3< = urgente
+ *
+ * Al momento de creacion siempre tendra como valor por defecto como "urgente" ya que de seguidor tiene solamente uno que es el usarix quien lo creo.
+ *
+ *
+ */

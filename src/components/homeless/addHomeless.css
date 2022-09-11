@@ -48,7 +48,10 @@
   justify-content: center;
   
 }
-
+.nroDeContacto{
+  display: flex;
+  flex-direction: row-reverse;
+}
 
 @media (min-width: 768px) {
   .section1 {
