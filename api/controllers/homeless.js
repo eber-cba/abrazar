@@ -2,6 +2,7 @@ const Homeless = require("../models/Homeless.js");
 const Vinculaciones = require("../models/Vinculaciones");
 const Direcciones = require("../models/Direcciones");
 const Usuarios = require("../models/Usuarios.js");
+const ContactoDeEmergencia = require("../models/ContactoDeEmergencia.js");
 
 class homelessControllers {
   static async createHomeless(req, res) {
@@ -34,6 +35,12 @@ class homelessControllers {
             model: Direcciones,
             as: "direccion",
             attributes: ["nombre", "deHora", "hastaHora"],
+          },
+          {
+            model: ContactoDeEmergencia,
+            as:"contactDeEmergencia",
+            attributes: ["contacto", "telefono"],
+
           },
           {
             model: Usuarios,

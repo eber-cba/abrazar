@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Button } from "primereact/button";
 import { postHomeless } from "../../redux/homeless";
+import { postContactoEmergencia } from "../../redux/contactoEmergencia";
 import useInput from "../../hooks/useInput";
 import "./addHomeless.css";
 export default function AddHomeless() {
@@ -31,6 +32,8 @@ export default function AddHomeless() {
   const telefono = useInput("");
   const datoExtra = useInput("");
   const situacion = useInput("");
+  const contacto = useInput("");
+  const nroDeContacto = useInput("");
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -88,6 +91,14 @@ export default function AddHomeless() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postHomeless({ form: form }))
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+    dispatch(
+      postContactoEmergencia({
+        contacto: contacto.value,
+        telefono: nroDeContacto.value,
+      })
+    )
       .then((data) => console.log(data))
       .catch((err) => console.log(err));
   };
@@ -244,8 +255,8 @@ export default function AddHomeless() {
                 <input className="inputs" type="number" {...telefono} />
               </label>
 
-              <div className="nroDeContacto">
-                <select name="nroDeContacto" id="nroDeContacto" {...educacion}>
+              <div className="contacto">
+                <select name="contacto" id="contacto" {...contacto}>
                   <option>Familiar</option>
                   <option>Pareja</option>
                   <option>Amigx</option>
@@ -253,9 +264,9 @@ export default function AddHomeless() {
                   <option>Otro</option>
                 </select>
                 <label>
-                Contacto de emergencia:
-                <input className="inputs" type="number" {...telefono} />
-              </label>
+                  Contacto de emergencia:
+                  <input className="inputs" type="number" {...nroDeContacto} />
+                </label>
               </div>
 
               <label for="situacion">Situacion:</label>
