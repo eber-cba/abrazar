@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import { Button } from "primereact/button";
-import { postHomeless } from "../../redux/homeless";
-import { postContactoEmergencia } from "../../redux/contactoEmergencia";
-import useInput from "../../hooks/useInput";
+import { postHomeless } from "../../../redux/homeless";
+import { postContactoEmergencia } from "../../../redux/contactoEmergencia";
+import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
 export default function AddHomeless() {
   const dispatch = useDispatch();

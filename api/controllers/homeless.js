@@ -45,7 +45,7 @@ class homelessControllers {
           {
             model: Usuarios,
             as: "usuarios",
-            attributes: ["nombre"],
+            attributes: ["name"],
           },
         ],
       }).then((homeless) => res.status(200).send(homeless));
