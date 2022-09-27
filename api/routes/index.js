@@ -8,7 +8,7 @@ const comentarios = require("./comentarios");
 const notificaciones = require("./notificaciones");
 const regiones = require("./regiones")
 const contactoDeEmergencia = require("./contactoDeEmergencia")
-
+const followers = require("./followers")
 router.use("/usuarios", usuarios);
 router.use("/homeless", homeless);
 router.use("/vinculaciones", vinculaciones);
@@ -17,6 +17,8 @@ router.use("/comentarios", comentarios);
 router.use("/notificaciones", notificaciones);
 router.use("/regiones", regiones);
 router.use("/contactoDeEmergencia", contactoDeEmergencia);
+router.use("/followers", followers);
+
 
 
 module.exports = router;

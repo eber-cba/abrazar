@@ -1,19 +1,24 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getHomeless } from "../../../redux/homeless";
+
 import { Card } from "primereact/card";
+import axios from "axios";
 
 export default function ViewsHomeless() {
   const [homeless, setHomeless] = useState([]);
+  const [seguir, setSeguir] = useState(true);
+  const [homelesId, setHomelesId] = useState();
+  const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getHomeless()).then(({ payload }) => setHomeless(payload));
+    dispatch(getHomeless()).then(({ payload }) => {
+      setHomeless(payload);
+    });
   }, []);
-
-  console.log("data =>", homeless);
 
   return (
     <div>
@@ -27,10 +32,8 @@ export default function ViewsHomeless() {
             <p className="m-0" style={{ lineHeight: "1.5" }}>
               genero: {homeles.genero}
             </p>
-            <p>
-            usuario creador: {homeles.usuarios.name}
-
-            </p>
+            <p>usuario creador: {homeles.usuarios.name}</p>
+            <p> id de homeless = {homeles.id}</p>
           </Card>
         );
       })}

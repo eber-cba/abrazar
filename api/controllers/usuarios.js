@@ -1,6 +1,7 @@
 const Usuarios = require("../models/Usuarios.js");
 const Homeless = require("../models/Homeless.js");
 const Comentarios = require("../models/Comentarios.js");
+const Followers = require("../models/Followers");
 
 class usuariosControllers {
   static async createUsuarios(req, res) {
@@ -49,6 +50,10 @@ class usuariosControllers {
             model: Comentarios,
             as: "comentario",
           },
+          {
+            model:Followers,
+            as:"followers"
+          }
         ],
       }).then((usuarios) => res.status(200).send(usuarios));
     } catch (err) {

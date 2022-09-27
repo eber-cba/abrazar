@@ -1,5 +1,5 @@
 import React from "react";
-import Bienvenida from "../../commons/home/Bienvenida";
+import Bienvenida from "../../common/home/Bienvenida";
 
 export default function Home() {
   return (

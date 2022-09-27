@@ -7,7 +7,7 @@ Followers.init(
   {
     seguir: {
       type: Sequelize.BOOLEAN,
-      defaultValue: 1,
+      
     },
   },
   {

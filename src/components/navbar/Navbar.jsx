@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Register from "../../commons/register/Register";
-import Login from "../../commons/login/Login";
+import Register from "../../common/register/Register";
+import Login from "../../common/login/Login";
 import { useSelector } from "react-redux";
 
 import "./navbar.css";

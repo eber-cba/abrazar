@@ -71,7 +71,7 @@ app.use((err, req, res, next) => {
   res.status(500).send(err.message);
 });
 
-db.sync({ force: false })
+db.sync({ force: true })
   .then(function () {
     app.listen(8080, () =>
       console.log("Servidor escuchando en el puerto 8080")
