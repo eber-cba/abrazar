@@ -64,7 +64,7 @@ export default function AddHomeless() {
     return 0;
   });
 
-  // console.log("¿ARGENTINA? =>", paises[9]);
+  // console.log("¿ARGENTINA? =>", paises[9]);  
   let form = {
     nacionalidad: paiz.value,
     img: img.value,

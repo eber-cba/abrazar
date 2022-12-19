@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: repeat(4,auto);
+  grid-template-rows: repeat(4, auto);
 
   grid-template-areas:
     "imagenes imagenes imagenes imagenes"
@@ -18,7 +18,6 @@
   grid-area: section1;
   background-color: #bb265f;
   padding: 10px;
-  
 }
 
 .boton1 {
@@ -40,15 +39,14 @@
   grid-area: boton3;
   display: flex;
   justify-content: center;
- }
+}
 .boton4 {
   background-color: rgb(135, 101, 136);
   grid-area: boton4;
   display: flex;
   justify-content: center;
-  
 }
-.nroDeContacto{
+.nroDeContacto {
   display: flex;
   flex-direction: row-reverse;
 }
