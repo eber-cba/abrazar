@@ -39,7 +39,7 @@ class homelessControllers {
           {
             model: ContactoDeEmergencia,
             as:"contactDeEmergencia",
-            attributes: ["contacto", "telefono"],
+            attributes: ["tipo", "telefono","nombre"],
 
           },
           {

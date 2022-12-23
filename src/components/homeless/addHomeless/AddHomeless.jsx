@@ -269,7 +269,7 @@ export default function AddHomeless() {
                 </label>
               </div>
 
-              <label for="situacion">Situacion:</label>
+              <label htmlFor="situacion">Situacion:</label>
 
               <select name="situacion" id="situacion" {...situacion}>
                 <option>Urgente</option> // esta siendo asistido por tantas
@@ -298,6 +298,7 @@ export default function AddHomeless() {
           </div>
         </form>
       </div>
+      
     </div>
   );
 }

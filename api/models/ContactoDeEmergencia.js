@@ -5,7 +5,11 @@ class ContactoDeEmergencia extends Sequelize.Model {}
 
 ContactoDeEmergencia.init(
   {
-    contacto: {
+    tipo: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    nombre: {
       type: Sequelize.STRING,
       allowNull: false,
     },
