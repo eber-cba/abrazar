@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
-import { Button } from "primereact/button";
-import { postHomeless } from "../../../redux/homeless";
-import { postContactoEmergencia } from "../../../redux/contactoEmergencia";
+
 import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
-export default function AddHomeless() {
-  const dispatch = useDispatch();
+export default function AddHomeless({ form, handleFormData }) {
   const user = useSelector((state) => state.user);
+  const [formData, setFormData] = useState({});
 
   const img = useInput("");
   const paiz = useInput("");
@@ -65,7 +63,7 @@ export default function AddHomeless() {
   });
 
   // console.log("¿ARGENTINA? =>", paises[9]);
-  let form = {
+  form = {
     nacionalidad: paiz.value,
     img: img.value,
     nombre: nombre.value,
@@ -88,20 +86,12 @@ export default function AddHomeless() {
 
     // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postHomeless({ form: form }))
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-    dispatch(
-      postContactoEmergencia({
-        contacto: contacto.value,
-        telefono: nroDeContacto.value,
-      })
-    )
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(postHomeless({ form: form }))
+  //     .then((data) => console.log(data))
+  //     .catch((err) => console.log(err));
+  // };
   /**
    * agregar-=>
    * contactoDeEmergencia
@@ -117,13 +107,16 @@ export default function AddHomeless() {
    * *educacion[listo]
    */
 
+  console.log("Form => ", form);
+  console.log("handleFormData", handleFormData);
+
   return (
     <div>
       <h2>Ingresa una nueva persona</h2>
       <p>Recorda de completar la mayoria de los campos requeridos</p>
 
       <div className='form'>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className='container'>
             <div className='imagenes'>
               <label htmlFor='fotoDePerfil' className='label'>
@@ -281,18 +274,6 @@ export default function AddHomeless() {
                 Dato Extra:
                 <textarea required name='datoExtra' {...datoExtra}></textarea>
               </label>
-            </div>
-            <div className='boton1'>
-              <Button>Añadir Vinculo</Button>
-            </div>
-            <div className='boton2'>
-              <Button>Ubicación</Button>
-            </div>
-            <div className='boton3'>
-              <Button type='submit'>Guardar</Button>
-            </div>
-            <div className='boton4'>
-              <Button>Cancelar</Button>
             </div>
           </div>
         </form>

@@ -4,10 +4,16 @@ import { Button } from "primereact/button";
 import Form1 from "./addHomeless/AddHomeless";
 import Form2 from "./Form2";
 import Resumen from "./Resumen";
+import { useDispatch } from "react-redux";
+import { postHomeless } from "../../redux/homeless";
+import { postContactoEmergencia } from "../../redux/contactoEmergencia";
 
 const MainComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [formData, setFormData] = useState({});
+  const [form, setForm] = useState({});
+  const [contacto, setContacto] = useState({});
+  const [nroDeContacto, setNroDeContacto] = useState({});
+  const dispatch = useDispatch();
   const steps = [
     { label: "Formulario 1" },
     { label: "Formulario 2 (Opcional)" },
@@ -23,21 +29,38 @@ const MainComponent = () => {
   };
 
   const handleFormData = (data) => {
+    console.log("data =>", data);
+    setForm({ ...form, ...data.form });
+    setContacto({ ...contacto, ...data.contacto });
+    setNroDeContacto({ ...nroDeContacto, ...data.nroDeContacto });
     if (data.skipForm2) {
       setActiveIndex(2);
     } else {
-      setFormData({ ...formData, ...data });
       handleNext();
     }
+  };
+  console.log("form en padre=>", form);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postHomeless({ form }))
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   };
 
   return (
     <div>
       <Steps model={steps} activeIndex={activeIndex} />
       <div>
-        {activeIndex === 0 && <Form1 onFormData={handleFormData} />}
-        {activeIndex === 1 && <Form2 onFormData={handleFormData} />}
-        {activeIndex === 2 && <Resumen formData={formData} />}
+        {activeIndex === 0 && <Form1 onFormData={handleFormData} form={form} />}
+        {activeIndex === 1 && (
+          <Form2
+            onFormData={handleFormData}
+            contacto={contacto}
+            nroDeContacto={nroDeContacto}
+          />
+        )}
+        {activeIndex === 2 && <Resumen formData={form} />}
         <div>
           <Button
             disabled={activeIndex === 0}
@@ -51,7 +74,7 @@ const MainComponent = () => {
               onClick={handleNext}
             />
           ) : (
-            <Button label='Finalizar' />
+            <Button label='Finalizar' onClick={handleSubmit} />
           )}
         </div>
       </div>
