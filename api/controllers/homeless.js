@@ -38,9 +38,8 @@ class homelessControllers {
           },
           {
             model: ContactoDeEmergencia,
-            as:"contactDeEmergencia",
-            attributes: ["tipo", "telefono","nombre"],
-
+            as: "contactDeEmergencia",
+            attributes: ["tipo", "telefono", "nombre"],
           },
           {
             model: Usuarios,
@@ -62,7 +61,7 @@ class homelessControllers {
       return next(error);
     }
   }
-  static async editHomeless(req, res) {
+  static async editHomeless(req, res, next) {
     try {
       Homeless.update(req.body, {
         where: { id: req.params.id },

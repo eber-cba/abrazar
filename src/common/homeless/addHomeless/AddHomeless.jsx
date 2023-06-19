@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { Button } from "primereact/button";
-import { postHomeless } from "../../../redux/homeless";
-import { postContactoEmergencia } from "../../../redux/contactoEmergencia";
 import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
-export default function AddHomeless() {
+import { setHomeless } from "../../../redux/homeless";
+export default function AddHomeless({ form, handleFormData, setForm }) {
   const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
+  const homelessData = useSelector((state) => state.homeless);
+
+  const [formData, setFormData] = useState({});
+
+  console.log("homelessData en addhomeless", homelessData);
+  console.log("Form en addhomeless => ", form);
 
   const img = useInput("");
   const paiz = useInput("");
@@ -34,6 +39,7 @@ export default function AddHomeless() {
   const situacion = useInput("");
   const contacto = useInput("");
   const nroDeContacto = useInput("");
+
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -65,7 +71,7 @@ export default function AddHomeless() {
   });
 
   // console.log("¿ARGENTINA? =>", paises[9]);
-  let form = {
+  form = {
     nacionalidad: paiz.value,
     img: img.value,
     nombre: nombre.value,
@@ -88,20 +94,16 @@ export default function AddHomeless() {
 
     // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postHomeless({ form: form }))
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-    dispatch(
-      postContactoEmergencia({
-        contacto: contacto.value,
-        telefono: nroDeContacto.value,
-      })
-    )
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  };
+
+  function enviar(e) {
+    handleFormData(dispatch(setHomeless(form)));
+  }
+  useEffect(() => {
+    // Al montar el componente, si hay datos en el estado global de homeless, usarlos para inicializar formData
+    if (homelessData.length) {
+      setFormData(homelessData[homelessData.length - 1]);
+    }
+  }, [homelessData]);
   /**
    * agregar-=>
    * contactoDeEmergencia
@@ -122,40 +124,40 @@ export default function AddHomeless() {
       <h2>Ingresa una nueva persona</h2>
       <p>Recorda de completar la mayoria de los campos requeridos</p>
 
-      <div className="form">
-        <form onSubmit={handleSubmit}>
-          <div className="container">
-            <div className="imagenes">
-              <label htmlFor="fotoDePerfil" className="label">
+      <div className='form'>
+        <form>
+          <div className='container'>
+            <div className='imagenes'>
+              <label htmlFor='fotoDePerfil' className='label'>
                 <p>IMAGEN DE PERFIL</p>
                 <input
-                  accept="image/*"
-                  id="fotoDePerfil"
+                  accept='image/*'
+                  id='fotoDePerfil'
                   multiple
-                  type="file"
-                  name="fotoDePerfil"
+                  type='file'
+                  name='fotoDePerfil'
                 />
-                <button variant="contained" component="span">
+                <button variant='contained' component='span'>
                   Cargar
                 </button>
               </label>
             </div>
-            <div className="section1">
+            <div className='section1'>
               <label>
                 Nombre:
-                <input className="inputs" type="text" {...nombre} />
+                <input className='inputs' type='text' {...nombre} />
               </label>
               <label>
                 Apellido:
-                <input className="inputs" type="text" {...apellido} />
+                <input className='inputs' type='text' {...apellido} />
               </label>
               <label>
                 edad:
-                <input className="inputs" type="text" {...edad} />
+                <input className='inputs' type='text' {...edad} />
               </label>
               <label>
                 Apodo:
-                <input className="inputs" type="text" {...apodo} />
+                <input className='inputs' type='text' {...apodo} />
               </label>
 
               <div>
@@ -163,9 +165,9 @@ export default function AddHomeless() {
                   Sexo:
                   <label>
                     <input
-                      id="radio-button"
-                      name="genero"
-                      type="radio"
+                      id='radio-button'
+                      name='genero'
+                      type='radio'
                       value={genero}
                       onChange={() => setGenero("Masculino")}
                     />
@@ -173,9 +175,9 @@ export default function AddHomeless() {
                   </label>
                   <label>
                     <input
-                      id="radio-button"
-                      name="genero"
-                      type="radio"
+                      id='radio-button'
+                      name='genero'
+                      type='radio'
                       value={genero}
                       onChange={() => setGenero("Femenino")}
                     />
@@ -185,7 +187,7 @@ export default function AddHomeless() {
               </div>
               <label>
                 Pais:
-                <select {...paiz} name="pais" id="pais">
+                <select {...paiz} name='pais' id='pais'>
                   <option></option>
                   {paises.map((pais, i) => (
                     <option key={i} value={pais.name.common}>
@@ -196,7 +198,7 @@ export default function AddHomeless() {
               </label>
               <label>
                 Provincia:
-                <select {...provincia} name="pais" id="pais">
+                <select {...provincia} name='pais' id='pais'>
                   <option></option>
                   {provi.map((provinci, i) => (
                     <option key={i} value={provinci.nombre}>
@@ -207,7 +209,7 @@ export default function AddHomeless() {
               </label>
               <label>
                 Localidad:
-                <select {...localidad} name="localidad" id="localidad">
+                <select {...localidad} name='localidad' id='localidad'>
                   <option></option>
                   {locali.map((localid, i) => (
                     <option key={i} value={localid.nombre}>
@@ -219,20 +221,20 @@ export default function AddHomeless() {
 
               <label>
                 Necesidad Urgente:
-                <input className="inputs" type="text" {...necesidadUrgente} />
+                <input className='inputs' type='text' {...necesidadUrgente} />
               </label>
               <label>
                 Otras necesidades:
-                <input className="inputs" type="text" {...otraNecesidad} />
+                <input className='inputs' type='text' {...otraNecesidad} />
               </label>
               <label>
                 Sueños:
-                <input className="inputs" type="text" {...sueños} />
+                <input className='inputs' type='text' {...sueños} />
               </label>
 
-              <label for="educacion">Educacion:</label>
+              <label for='educacion'>Educacion:</label>
 
-              <select name="educacion" id="educacion" {...educacion}>
+              <select name='educacion' id='educacion' {...educacion}>
                 <option>Primaria incompleta</option>
                 <option>Secundaria incompleta</option>
                 <option>Secundaria Completa</option>
@@ -240,23 +242,23 @@ export default function AddHomeless() {
               </select>
               <label>
                 Problemas de salud:
-                <input className="inputs" type="text" {...problemaDeSalud} />
+                <input className='inputs' type='text' {...problemaDeSalud} />
               </label>
               <label>
                 ¿Toma medicamentos?:
-                <input className="inputs" type="text" {...medicamentos} />
+                <input className='inputs' type='text' {...medicamentos} />
               </label>
               <label>
                 ¿Trabajo?:
-                <input className="inputs" type="text" {...trabajo} />
+                <input className='inputs' type='text' {...trabajo} />
               </label>
               <label>
                 Telefono:
-                <input className="inputs" type="number" {...telefono} />
+                <input className='inputs' type='number' {...telefono} />
               </label>
 
-              <div className="contacto">
-                <select name="contacto" id="contacto" {...contacto}>
+              <div className='contacto'>
+                <select name='contacto' id='contacto' {...contacto}>
                   <option>Familiar</option>
                   <option>Pareja</option>
                   <option>Amigx</option>
@@ -265,40 +267,27 @@ export default function AddHomeless() {
                 </select>
                 <label>
                   Contacto de emergencia:
-                  <input className="inputs" type="number" {...nroDeContacto} />
+                  <input className='inputs' type='number' {...nroDeContacto} />
                 </label>
               </div>
 
-              <label htmlFor="situacion">Situacion:</label>
+              <label htmlFor='situacion'>Situacion:</label>
 
-              <select name="situacion" id="situacion" {...situacion}>
-                <option>Urgente</option> // esta siendo asistido por tantas
-                personas
+              <select name='situacion' id='situacion' {...situacion}>
+                <option>Urgente</option>
                 <option>Moderada</option>
                 <option>Estable</option>
               </select>
 
               <label>
                 Dato Extra:
-                <textarea required name="datoExtra" {...datoExtra}></textarea>
+                <textarea required name='datoExtra' {...datoExtra}></textarea>
               </label>
             </div>
-            <div className="boton1">
-              <Button>Añadir Vinculo</Button>
-            </div>
-            <div className="boton2">
-              <Button>Ubicación</Button>
-            </div>
-            <div className="boton3">
-              <Button type="submit">Guardar</Button>
-            </div>
-            <div className="boton4">
-              <Button>Cancelar</Button>
-            </div>
           </div>
+          <button onClick={enviar}>guardar!</button>
         </form>
       </div>
-      
     </div>
   );
 }

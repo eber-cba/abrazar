@@ -7,8 +7,8 @@ import { afterLogin } from "./redux/users";
 import Navbar from "./components/navbar/Navbar";
 import Home from "./components/home/Home";
 import PerfilUser from './components/perfilUser/PerfilUser';
-import AddHomeless from './components/homeless/addHomeless/AddHomeless';
 import ViewsHomeless from './components/homeless/viewsHomeless/ViewsHomeless';
+import StepsHomeless from "./common/homeless/StepsHomeless";
 function App() {
   const dispatch = useDispatch();
 
@@ -22,10 +22,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/MiPerfil" element={<PerfilUser />} />
-        <Route path="/AddHomeless" element={<AddHomeless />} />
+        <Route path="/AddHomeless" element={<StepsHomeless />} />
         <Route path="/ViewsHomeless" element={<ViewsHomeless />} />
-
-
       </Routes>
     </div>
   );

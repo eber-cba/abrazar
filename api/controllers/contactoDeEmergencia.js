@@ -30,7 +30,7 @@ class contactoDeEmergenciaControllers {
       return next(error);
     }
   }
-  static async findContacto(req, res) {
+  static async findContacto(req, res, next) {
     try {
       await ContactoDeEmergencia.findAll({
         include: {

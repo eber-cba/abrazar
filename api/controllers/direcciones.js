@@ -30,7 +30,7 @@ class direccionesControllers {
       return next(error);
     }
   }
-  static async findDirecciones(req, res) {
+  static async findDirecciones(req, res, next) {
     try {
       await Direcciones.findAll({
         include: {
@@ -43,7 +43,7 @@ class direccionesControllers {
       return next(error);
     }
   }
-  static async findoOneDireccionesId(req, res) {
+  static async findoOneDireccionesId(req, res, next) {
     try {
       Direcciones.findOne({ where: { id: req.params.id } }).then(
         (direcciones) => res.send(direcciones)
