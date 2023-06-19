@@ -16,7 +16,7 @@ class vinculacionesControllers {
         res.sendStatus(200)
       );
     } catch (error) {
-      return next(err);
+      return next(error);
     }
   }
   static async findVinculaciones(req, res, next) {
@@ -29,7 +29,7 @@ class vinculacionesControllers {
         },
       }).then((vinculaciones) => res.status(200).send(vinculaciones));
     } catch (error) {
-      return next(err);
+      return next(error);
     }
   }
   static async findoOneVinculacionesId(req, res, next) {
@@ -38,7 +38,7 @@ class vinculacionesControllers {
         (vinculaciones) => res.send(vinculaciones)
       );
     } catch (error) {
-      return next(err);
+      return next(error);
     }
   }
   static async editVinculaciones(req, res, next) {

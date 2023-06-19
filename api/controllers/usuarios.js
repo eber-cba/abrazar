@@ -22,14 +22,14 @@ class usuariosControllers {
       return next(err);
     }
   }
- 
+
   static login(req, res, next) {
     res.json(req.user);
   }
   static afterLogin(req, res) {
     req.user ? res.send(req.user) : res.sendStatus(401);
   }
-  static logout(req, res) {
+  static logout(req, res, next) {
     req.logout(function (err) {
       if (err) {
         return next(err);
@@ -51,9 +51,9 @@ class usuariosControllers {
             as: "comentario",
           },
           {
-            model:Followers,
-            as:"followers"
-          }
+            model: Followers,
+            as: "followers",
+          },
         ],
       }).then((usuarios) => res.status(200).send(usuarios));
     } catch (err) {

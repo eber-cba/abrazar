@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
 import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
-export default function AddHomeless({ form, handleFormData }) {
+import { setHomeless } from "../../../redux/homeless";
+export default function AddHomeless({ form, handleFormData, setForm }) {
+  const dispatch = useDispatch();
+
   const user = useSelector((state) => state.user);
+  const homelessData = useSelector((state) => state.homeless);
+
   const [formData, setFormData] = useState({});
+
+  console.log("homelessData en addhomeless", homelessData);
+  console.log("Form en addhomeless => ", form);
 
   const img = useInput("");
   const paiz = useInput("");
@@ -32,6 +39,7 @@ export default function AddHomeless({ form, handleFormData }) {
   const situacion = useInput("");
   const contacto = useInput("");
   const nroDeContacto = useInput("");
+
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -86,12 +94,16 @@ export default function AddHomeless({ form, handleFormData }) {
 
     // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   dispatch(postHomeless({ form: form }))
-  //     .then((data) => console.log(data))
-  //     .catch((err) => console.log(err));
-  // };
+
+  function enviar(e) {
+    handleFormData(dispatch(setHomeless(form)));
+  }
+  useEffect(() => {
+    // Al montar el componente, si hay datos en el estado global de homeless, usarlos para inicializar formData
+    if (homelessData.length) {
+      setFormData(homelessData[homelessData.length - 1]);
+    }
+  }, [homelessData]);
   /**
    * agregar-=>
    * contactoDeEmergencia
@@ -106,9 +118,6 @@ export default function AddHomeless({ form, handleFormData }) {
    * *trabajo[listo]
    * *educacion[listo]
    */
-
-  console.log("Form => ", form);
-  console.log("handleFormData", handleFormData);
 
   return (
     <div>
@@ -276,6 +285,7 @@ export default function AddHomeless({ form, handleFormData }) {
               </label>
             </div>
           </div>
+          <button onClick={enviar}>guardar!</button>
         </form>
       </div>
     </div>
