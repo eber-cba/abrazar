@@ -1,25 +1,35 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import useInput from "../../hooks/useInput";
+import axios from "axios";
 import {
   fetchPaises,
   fetchProvincias,
   fetchLocalidades,
   setGenero,
+  setPaiz,
+  setProvincia,
+  setLocalidad,
 } from "../../redux/regiones";
-import useInput from "../../hooks/useInput";
-import axios from "axios";
 
 const FormularioCompleto = ({ handleInputChange }) => {
+  const paises = useSelector((state) => state.regiones.paises);
+  const paisSeleccionado = useSelector((state) => state.regiones.paiz);
+  const provincias = useSelector((state) => state.regiones.provincias);
+  const provinciaSeleccionada = useSelector(
+    (state) => state.regiones.provincia
+  );
+  const localidades = useSelector((state) => state.regiones.localidades);
+  const localidadSeleccionada = useSelector(
+    (state) => state.regiones.localidad
+  );
+
   const img = useInput("");
-  const countries = useSelector((state) => state.regiones.paises);
-  const paiz = useInput("");
   const nombre = useInput("");
   const apellido = useInput("");
   const edad = useInput("");
   const apodo = useInput("");
   const genero = useSelector((state) => state.regiones.genero);
-  const provi = useSelector((state) => state.regiones.provincias);
-  const locali = useSelector((state) => state.regiones.localidades);
   const provincia = useInput("");
   const localidad = useInput("");
   const necesidadUrgente = useInput("");
@@ -42,17 +52,31 @@ const FormularioCompleto = ({ handleInputChange }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchProvincias());
-  }, [dispatch]);
+    if (paisSeleccionado) {
+      dispatch(fetchProvincias(paisSeleccionado));
+    }
+  }, [paisSeleccionado, dispatch]);
 
   useEffect(() => {
-    if (provincia.value) {
-      dispatch(fetchLocalidades(provincia.value));
+    if (provinciaSeleccionada) {
+      dispatch(fetchLocalidades(provinciaSeleccionada));
     }
-  }, [provincia.value, dispatch]);
+  }, [provinciaSeleccionada, dispatch]);
 
   const handleChangeGenero = (event) => {
     dispatch(setGenero(event.target.value));
+  };
+
+  const handleChangePais = (event) => {
+    dispatch(setPaiz(event.target.value));
+  };
+
+  const handleChangeProvincia = (event) => {
+    dispatch(setProvincia(event.target.value));
+  };
+
+  const handleChangeLocalidad = (event) => {
+    dispatch(setLocalidad(event.target.value));
   };
 
   return (
@@ -63,9 +87,9 @@ const FormularioCompleto = ({ handleInputChange }) => {
       </label>
       <label>
         País:
-        <select {...paiz} onChange={fetchPaises}>
+        <select value={paisSeleccionado} onChange={handleChangePais}>
           <option></option>
-          {countries.map((country, i) => (
+          {paises.map((country, i) => (
             <option key={i} value={country.name.common}>
               {country.name.common}
             </option>
@@ -98,9 +122,9 @@ const FormularioCompleto = ({ handleInputChange }) => {
       </label>
       <label>
         Provincia:
-        <select {...provincia} onChange={fetchProvincias}>
+        <select value={provinciaSeleccionada} onChange={handleChangeProvincia}>
           <option></option>
-          {provi.map((provincia, i) => (
+          {provincias.map((provincia, i) => (
             <option key={i} value={provincia.nombre}>
               {provincia.nombre}
             </option>
@@ -109,9 +133,9 @@ const FormularioCompleto = ({ handleInputChange }) => {
       </label>
       <label>
         Localidad:
-        <select {...localidad} onChange={fetchLocalidades}>
+        <select value={localidadSeleccionada} onChange={handleChangeLocalidad}>
           <option></option>
-          {locali.map((localidad, i) => (
+          {localidades.map((localidad, i) => (
             <option key={i} value={localidad.nombre}>
               {localidad.nombre}
             </option>

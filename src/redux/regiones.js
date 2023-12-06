@@ -48,13 +48,25 @@ const regionesSlice = createSlice({
   name: "regiones",
   initialState: {
     paises: [],
+    paiz: "",
     provincias: [],
+    provincia: "",
     localidades: [],
+    localidad: "",
     genero: "Prefiero no decirlo",
   },
   reducers: {
     setGenero: (state, action) => {
       state.genero = action.payload;
+    },
+    setPaiz: (state, action) => {
+      state.paiz = action.payload;
+    },
+    setProvincia: (state, action) => {
+      state.provincia = action.payload;
+    },
+    setLocalidad: (state, action) => {
+      state.localidad = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -70,6 +82,7 @@ const regionesSlice = createSlice({
   },
 });
 
-export const { setGenero } = regionesSlice.actions;
+export const { setGenero, setPaiz, setProvincia, setLocalidad } =
+  regionesSlice.actions;
 
 export default regionesSlice.reducer;
