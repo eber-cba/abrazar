@@ -10,15 +10,14 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
   const user = useSelector((state) => state.user);
   const homelessData = useSelector((state) => state.homeless);
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(form);
 
-  console.log("homelessData en addhomeless", homelessData);
-  console.log("Form en addhomeless => ", form);
+  const nombre = useInput(localStorage.getItem("nombre") || "");
+  const apellido = useInput(localStorage.getItem("apellido") || "");
 
   const img = useInput("");
   const paiz = useInput("");
-  const nombre = useInput("");
-  const apellido = useInput("");
+
   const edad = useInput("");
   const apodo = useInput("");
   const [genero, setGenero] = useState("Prefiero no decirlo");
@@ -69,7 +68,21 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     // a must be equal to b
     return 0;
   });
+  const actualizarNombres = () => {
+    // Ejemplo de cómo actualizar los valores de nombre y apellido
+  };
+  const updateFormState = () => {
+    nombre.setValue(nombre);
+    apellido.setValue(apellido);
+  };
 
+  // useEffect(updateFormState, [
+  //   paiz.value,
+  //   img.value,
+  //   nombre.value,
+  //   apellido.value,
+  //   // ... (resto de los inputs)
+  // ]);
   // console.log("¿ARGENTINA? =>", paises[9]);
   form = {
     nacionalidad: paiz.value,
@@ -94,16 +107,9 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
 
     // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
+  console.log("Form en addhomeless => ", form);
+  console.log(" en nombre", nombre);
 
-  function enviar(e) {
-    handleFormData(dispatch(setHomeless(form)));
-  }
-  useEffect(() => {
-    // Al montar el componente, si hay datos en el estado global de homeless, usarlos para inicializar formData
-    if (homelessData.length) {
-      setFormData(homelessData[homelessData.length - 1]);
-    }
-  }, [homelessData]);
   /**
    * agregar-=>
    * contactoDeEmergencia
@@ -145,19 +151,29 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
             <div className='section1'>
               <label>
                 Nombre:
-                <input className='inputs' type='text' {...nombre} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={nombre.value}
+                  onChange={nombre.onChange}
+                />
               </label>
               <label>
                 Apellido:
-                <input className='inputs' type='text' {...apellido} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={apellido.value}
+                  onChange={apellido.onChange}
+                />
               </label>
               <label>
                 edad:
-                <input className='inputs' type='text' {...edad} />
+                <input className='inputs' type='text' {...edad.value} />
               </label>
               <label>
                 Apodo:
-                <input className='inputs' type='text' {...apodo} />
+                <input className='inputs' type='text' {...apodo.value} />
               </label>
 
               <div>
@@ -168,7 +184,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                       id='radio-button'
                       name='genero'
                       type='radio'
-                      value={genero}
+                      value={genero.value}
                       onChange={() => setGenero("Masculino")}
                     />
                     Masculino
@@ -178,7 +194,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                       id='radio-button'
                       name='genero'
                       type='radio'
-                      value={genero}
+                      value={genero.value}
                       onChange={() => setGenero("Femenino")}
                     />
                     Femenino
@@ -221,20 +237,28 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
 
               <label>
                 Necesidad Urgente:
-                <input className='inputs' type='text' {...necesidadUrgente} />
+                <input
+                  className='inputs'
+                  type='text'
+                  {...necesidadUrgente.value}
+                />
               </label>
               <label>
                 Otras necesidades:
-                <input className='inputs' type='text' {...otraNecesidad} />
+                <input
+                  className='inputs'
+                  type='text'
+                  {...otraNecesidad.value}
+                />
               </label>
               <label>
                 Sueños:
-                <input className='inputs' type='text' {...sueños} />
+                <input className='inputs' type='text' {...sueños.value} />
               </label>
 
               <label for='educacion'>Educacion:</label>
 
-              <select name='educacion' id='educacion' {...educacion}>
+              <select name='educacion' id='educacion' {...educacion.value}>
                 <option>Primaria incompleta</option>
                 <option>Secundaria incompleta</option>
                 <option>Secundaria Completa</option>
@@ -242,23 +266,27 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
               </select>
               <label>
                 Problemas de salud:
-                <input className='inputs' type='text' {...problemaDeSalud} />
+                <input
+                  className='inputs'
+                  type='text'
+                  {...problemaDeSalud.value}
+                />
               </label>
               <label>
                 ¿Toma medicamentos?:
-                <input className='inputs' type='text' {...medicamentos} />
+                <input className='inputs' type='text' {...medicamentos.value} />
               </label>
               <label>
                 ¿Trabajo?:
-                <input className='inputs' type='text' {...trabajo} />
+                <input className='inputs' type='text' {...trabajo.value} />
               </label>
               <label>
                 Telefono:
-                <input className='inputs' type='number' {...telefono} />
+                <input className='inputs' type='number' {...telefono.value} />
               </label>
 
               <div className='contacto'>
-                <select name='contacto' id='contacto' {...contacto}>
+                <select name='contacto' id='contacto' {...contacto.value}>
                   <option>Familiar</option>
                   <option>Pareja</option>
                   <option>Amigx</option>
@@ -267,13 +295,17 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 </select>
                 <label>
                   Contacto de emergencia:
-                  <input className='inputs' type='number' {...nroDeContacto} />
+                  <input
+                    className='inputs'
+                    type='number'
+                    {...nroDeContacto.value}
+                  />
                 </label>
               </div>
 
               <label htmlFor='situacion'>Situacion:</label>
 
-              <select name='situacion' id='situacion' {...situacion}>
+              <select name='situacion' id='situacion' {...situacion.value}>
                 <option>Urgente</option>
                 <option>Moderada</option>
                 <option>Estable</option>
@@ -281,11 +313,14 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
 
               <label>
                 Dato Extra:
-                <textarea required name='datoExtra' {...datoExtra}></textarea>
+                <textarea
+                  required
+                  name='datoExtra'
+                  {...datoExtra.value}
+                ></textarea>
               </label>
             </div>
           </div>
-          <button onClick={enviar}>guardar!</button>
         </form>
       </div>
     </div>

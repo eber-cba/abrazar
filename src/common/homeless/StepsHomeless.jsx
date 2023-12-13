@@ -25,6 +25,11 @@ const MainComponent = () => {
   ];
 
   const handleNext = () => {
+    if (activeIndex === 0) {
+      localStorage.setItem("formDataStep1", JSON.stringify(form));
+    } else if (activeIndex === 1) {
+      localStorage.setItem("formDataStep2", JSON.stringify(form));
+    }
     setActiveIndex((prevIndex) => prevIndex + 1);
   };
 
@@ -33,7 +38,9 @@ const MainComponent = () => {
   };
 
   console.log("form en padre=>", form);
+
   const handleFormData = (data) => {
+    console.log("data stepts =>", data);
     setForm(data);
   };
   const handleSubmit = (e) => {
