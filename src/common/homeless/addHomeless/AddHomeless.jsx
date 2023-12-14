@@ -140,31 +140,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     contacto,
     nroDeContacto,
   ]);
-  console.log("nombre => add", nombre.value);
-  // console.log("¿ARGENTINA? =>", paises[9]);
-  form = {
-    nacionalidad: paiz.value,
-    img: img.value,
-    nombre: nombre.value,
-    apellido: apellido.value,
-    edad: edad.value,
-    apodo: apodo.value,
-    genero: genero,
-    provincia: provincia.value,
-    localidad: localidad.value,
-    necesidadesUrgentes: necesidadUrgente.value,
-    otrasNecesidades: otraNecesidad.value,
-    sueños: sueños.value,
-    trabajo: trabajo.value,
-    educacion: educacion.value,
-    problemasDeSalud: problemaDeSalud.value,
-    medicamentos: medicamentos.value,
-    usuariosId: user.id,
-    telefono: telefono.value,
-    datoExtra: datoExtra.value,
 
-    // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
-  };
+  // console.log("¿ARGENTINA? =>", paises[9]);
 
   /**
    * agregar-=>
