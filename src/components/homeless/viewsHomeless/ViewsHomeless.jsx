@@ -11,6 +11,7 @@ export default function ViewsHomeless() {
   const [seguir, setSeguir] = useState(true);
   const [homelesId, setHomelesId] = useState();
   const user = useSelector((state) => state.user);
+  console.log("homeless =>", homeless);
 
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ export default function ViewsHomeless() {
             title={homeles.nombre}
             style={{ width: "25rem", marginBottom: "2em" }}
           >
-            <p className="m-0" style={{ lineHeight: "1.5" }}>
+            <p className='m-0' style={{ lineHeight: "1.5" }}>
               genero: {homeles.genero}
             </p>
             <p>usuario creador: {homeles.usuarios.name}</p>

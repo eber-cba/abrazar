@@ -16,7 +16,7 @@ const MainComponent = () => {
   const dispatch = useDispatch();
   const homeless = useSelector((state) => state.homeless);
 
-  console.log("homeless =>", homeless);
+  console.log("form stepper", form);
 
   const steps = [
     { label: "Formulario 1" },
@@ -43,13 +43,43 @@ const MainComponent = () => {
     console.log("data stepts =>", data);
     setForm(data);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postHomeless({ form }))
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log("data guardada?=>", data);
+        // Limpiar el localStorage después de enviar los datos
+        localStorage.removeItem("nombre");
+        localStorage.removeItem("apellido");
+        localStorage.removeItem("img");
+        localStorage.removeItem("paiz");
+        localStorage.removeItem("edad");
+        localStorage.removeItem("apodo");
+        localStorage.removeItem("genero");
+        localStorage.removeItem("provincia");
+        localStorage.removeItem("localidad");
+        localStorage.removeItem("necesidadUrgente");
+        localStorage.removeItem("otraNecesidad");
+        localStorage.removeItem("sueños");
+        localStorage.removeItem("trabajo");
+        localStorage.removeItem("educacion");
+        localStorage.removeItem("problemaDeSalud");
+        localStorage.removeItem("medicamentos");
+        localStorage.removeItem("telefono");
+        localStorage.removeItem("datoExtra");
+        localStorage.removeItem("situacion");
+        localStorage.removeItem("contacto");
+        localStorage.removeItem("nroDeContacto");
+        // Agregar aquí la limpieza para otros campos que desees eliminar del localStorage
+
+        // Restablecer el estado del formulario a un objeto vacío
+        setForm({});
+        // Cambiar al primer índice después de finalizar
+        // setActiveIndex(0);
+      })
       .catch((err) => console.log(err));
   };
-
   return (
     <div>
       <Steps model={steps} activeIndex={activeIndex} />

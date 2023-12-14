@@ -3,42 +3,68 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
-import { setHomeless } from "../../../redux/homeless";
 export default function AddHomeless({ form, handleFormData, setForm }) {
-  const dispatch = useDispatch();
-
   const user = useSelector((state) => state.user);
-  const homelessData = useSelector((state) => state.homeless);
 
-  const [formData, setFormData] = useState(form);
-
-  const nombre = useInput(localStorage.getItem("nombre") || "");
-  const apellido = useInput(localStorage.getItem("apellido") || "");
-
-  const img = useInput("");
-  const paiz = useInput("");
-
-  const edad = useInput("");
-  const apodo = useInput("");
-  const [genero, setGenero] = useState("Prefiero no decirlo");
+  const nombre = useInput(form.nombre || "");
+  const apellido = useInput(form.apellido || "");
+  const img = useInput(form.img || "");
+  const paiz = useInput(form.paiz || "");
+  const edad = useInput(form.edad || "");
+  const apodo = useInput(form.apodo || "");
+  const [genero, setGenero] = useState(form.genero || "Prefiero no decirlo");
   const [countries, setCountries] = useState([]);
   const [provi, setProvi] = useState([]);
   const [locali, setLocali] = useState([]);
-  const provincia = useInput("");
-  const localidad = useInput("");
-  const necesidadUrgente = useInput("");
-  const otraNecesidad = useInput("");
-  const sueños = useInput("");
-  const trabajo = useInput("");
-  const educacion = useInput("");
-  const problemaDeSalud = useInput("");
-  const medicamentos = useInput("");
-  const telefono = useInput("");
-  const datoExtra = useInput("");
-  const situacion = useInput("");
-  const contacto = useInput("");
-  const nroDeContacto = useInput("");
+  const provincia = useInput(form.provincia || "");
+  const localidad = useInput(form.localidad || "");
+  const necesidadUrgente = useInput(form.necesidadUrgente || "");
+  const otraNecesidad = useInput(form.otraNecesidad || "");
+  const sueños = useInput(form.sueños || "");
+  const trabajo = useInput(form.trabajo || "");
+  const educacion = useInput(form.educacion || "");
+  const problemaDeSalud = useInput(form.problemaDeSalud || "");
+  const medicamentos = useInput(form.medicamentos || "");
+  const telefono = useInput(form.telefono || "");
+  const datoExtra = useInput(form.datoExtra || "");
+  const situacion = useInput(form.situacion || "");
+  const contacto = useInput(form.contacto || "");
+  const nroDeContacto = useInput(form.nroDeContacto || "");
 
+  const formFields = [
+    { key: "nombre", value: nombre.value },
+    { key: "apellido", value: apellido.value },
+    { key: "img", value: img.value },
+    { key: "paiz", value: paiz.value },
+    { key: "edad", value: edad.value },
+    { key: "apodo", value: apodo.value },
+    { key: "genero", value: genero },
+    { key: "provincia", value: provincia.value },
+    { key: "localidad", value: localidad.value },
+    { key: "necesidadUrgente", value: necesidadUrgente.value },
+    { key: "otraNecesidad", value: otraNecesidad.value },
+    { key: "sueños", value: sueños.value },
+    { key: "trabajo", value: trabajo.value },
+    { key: "educacion", value: educacion.value },
+    { key: "problemaDeSalud", value: problemaDeSalud.value },
+    { key: "medicamentos", value: medicamentos.value },
+    { key: "telefono", value: telefono.value },
+    { key: "datoExtra", value: datoExtra.value },
+    { key: "situacion", value: situacion.value },
+    { key: "contacto", value: contacto.value },
+    { key: "nroDeContacto", value: nroDeContacto.value },
+    // ... y así sucesivamente para cada campo de useInput
+  ];
+  useEffect(
+    () => {
+      const updatedForm = {};
+      formFields.forEach((field) => {
+        updatedForm[field.key] = field.value;
+      });
+      setForm(updatedForm);
+    },
+    formFields.map((field) => field.value)
+  );
   useEffect(() => {
     axios
       .get("https://restcountries.com/v3.1/all")
@@ -68,21 +94,53 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     // a must be equal to b
     return 0;
   });
-  const actualizarNombres = () => {
-    // Ejemplo de cómo actualizar los valores de nombre y apellido
-  };
-  const updateFormState = () => {
-    nombre.setValue(nombre);
-    apellido.setValue(apellido);
-  };
 
-  // useEffect(updateFormState, [
-  //   paiz.value,
-  //   img.value,
-  //   nombre.value,
-  //   apellido.value,
-  //   // ... (resto de los inputs)
-  // ]);
+  useEffect(() => {
+    localStorage.setItem("nombre", nombre.value);
+    localStorage.setItem("apellido", apellido.value);
+    localStorage.setItem("img", img.value);
+    localStorage.setItem("paiz", paiz.value);
+    localStorage.setItem("edad", edad.value);
+    localStorage.setItem("apodo", apodo.value);
+    localStorage.setItem("genero", genero);
+    localStorage.setItem("provincia", provincia.value);
+    localStorage.setItem("localidad", localidad.value);
+    localStorage.setItem("necesidadUrgente", necesidadUrgente.value);
+    localStorage.setItem("otraNecesidad", otraNecesidad.value);
+    localStorage.setItem("sueños", sueños.value);
+    localStorage.setItem("trabajo", trabajo.value);
+    localStorage.setItem("educacion", educacion.value);
+    localStorage.setItem("problemaDeSalud", problemaDeSalud.value);
+    localStorage.setItem("medicamentos", medicamentos.value);
+    localStorage.setItem("telefono", telefono.value);
+    localStorage.setItem("datoExtra", datoExtra.value);
+    localStorage.setItem("situacion", situacion.value);
+    localStorage.setItem("contacto", contacto.value);
+    localStorage.setItem("nroDeContacto", nroDeContacto.value);
+  }, [
+    nombre,
+    apellido,
+    img,
+    paiz,
+    edad,
+    apodo,
+    genero,
+    provincia,
+    localidad,
+    necesidadUrgente,
+    otraNecesidad,
+    sueños,
+    trabajo,
+    educacion,
+    problemaDeSalud,
+    medicamentos,
+    telefono,
+    datoExtra,
+    situacion,
+    contacto,
+    nroDeContacto,
+  ]);
+  console.log("nombre => add", nombre.value);
   // console.log("¿ARGENTINA? =>", paises[9]);
   form = {
     nacionalidad: paiz.value,
@@ -107,8 +165,6 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
 
     // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
   };
-  console.log("Form en addhomeless => ", form);
-  console.log(" en nombre", nombre);
 
   /**
    * agregar-=>
@@ -169,11 +225,21 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
               </label>
               <label>
                 edad:
-                <input className='inputs' type='text' {...edad.value} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={edad.value}
+                  onChange={edad.onChange}
+                />
               </label>
               <label>
                 Apodo:
-                <input className='inputs' type='text' {...apodo.value} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={apodo.value}
+                  onChange={apodo.onChange}
+                />
               </label>
 
               <div>
@@ -184,8 +250,12 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                       id='radio-button'
                       name='genero'
                       type='radio'
-                      value={genero.value}
-                      onChange={() => setGenero("Masculino")}
+                      value='Masculino'
+                      checked={genero === "Masculino"}
+                      onChange={() => {
+                        localStorage.setItem("genero", "Masculino");
+                        setGenero("Masculino");
+                      }}
                     />
                     Masculino
                   </label>
@@ -194,8 +264,12 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                       id='radio-button'
                       name='genero'
                       type='radio'
-                      value={genero.value}
-                      onChange={() => setGenero("Femenino")}
+                      value='Femenino'
+                      checked={genero === "Femenino"}
+                      onChange={() => {
+                        localStorage.setItem("genero", "Femenino");
+                        setGenero("Femenino");
+                      }}
                     />
                     Femenino
                   </label>
@@ -240,7 +314,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  {...necesidadUrgente.value}
+                  value={necesidadUrgente.value}
+                  onChange={necesidadUrgente.onChange}
                 />
               </label>
               <label>
@@ -248,17 +323,28 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  {...otraNecesidad.value}
+                  value={otraNecesidad.value}
+                  onChange={otraNecesidad.onChange}
                 />
               </label>
               <label>
                 Sueños:
-                <input className='inputs' type='text' {...sueños.value} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={sueños.value}
+                  onChange={sueños.onChange}
+                />
               </label>
 
               <label for='educacion'>Educacion:</label>
 
-              <select name='educacion' id='educacion' {...educacion.value}>
+              <select
+                name='educacion'
+                id='educacion'
+                value={educacion.value}
+                onChange={educacion.onChange}
+              >
                 <option>Primaria incompleta</option>
                 <option>Secundaria incompleta</option>
                 <option>Secundaria Completa</option>
@@ -269,24 +355,45 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  {...problemaDeSalud.value}
+                  value={problemaDeSalud.value}
+                  onChange={problemaDeSalud.onChange}
                 />
               </label>
               <label>
                 ¿Toma medicamentos?:
-                <input className='inputs' type='text' {...medicamentos.value} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={medicamentos.value}
+                  onChange={medicamentos.onChange}
+                />
               </label>
               <label>
                 ¿Trabajo?:
-                <input className='inputs' type='text' {...trabajo.value} />
+                <input
+                  className='inputs'
+                  type='text'
+                  value={trabajo.value}
+                  onChange={trabajo.onChange}
+                />
               </label>
               <label>
                 Telefono:
-                <input className='inputs' type='number' {...telefono.value} />
+                <input
+                  className='inputs'
+                  type='number'
+                  value={telefono.value}
+                  onChange={telefono.onChange}
+                />
               </label>
 
               <div className='contacto'>
-                <select name='contacto' id='contacto' {...contacto.value}>
+                <select
+                  name='contacto'
+                  id='contacto'
+                  value={contacto.value}
+                  onChange={contacto.onChange}
+                >
                   <option>Familiar</option>
                   <option>Pareja</option>
                   <option>Amigx</option>
@@ -298,14 +405,20 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                   <input
                     className='inputs'
                     type='number'
-                    {...nroDeContacto.value}
+                    value={nroDeContacto.value}
+                    onChange={nroDeContacto.onChange}
                   />
                 </label>
               </div>
 
               <label htmlFor='situacion'>Situacion:</label>
 
-              <select name='situacion' id='situacion' {...situacion.value}>
+              <select
+                name='situacion'
+                id='situacion'
+                value={situacion.value}
+                onChange={situacion.onChange}
+              >
                 <option>Urgente</option>
                 <option>Moderada</option>
                 <option>Estable</option>
@@ -316,7 +429,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <textarea
                   required
                   name='datoExtra'
-                  {...datoExtra.value}
+                  value={datoExtra.value}
+                  onChange={datoExtra.onChange}
                 ></textarea>
               </label>
             </div>
