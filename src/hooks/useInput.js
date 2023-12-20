@@ -10,7 +10,6 @@ const useInput = (initialValue) => {
   return {
     value,
     onChange: handleChange,
-    setValue, // Add a function to directly set the value externally
   };
 };
 

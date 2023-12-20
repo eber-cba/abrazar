@@ -6,17 +6,16 @@ import Form2 from "./Form2";
 import Resumen from "./Resumen";
 import { useDispatch, useSelector } from "react-redux";
 import { postHomeless, setHomeless } from "../../redux/homeless";
-import { postContactoEmergencia } from "../../redux/contactoEmergencia";
-
+import { useNavigate } from "react-router-dom";
 const MainComponent = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [form, setForm] = useState({});
   const [contacto, setContacto] = useState({});
   const [nroDeContacto, setNroDeContacto] = useState({});
   const dispatch = useDispatch();
-  const homeless = useSelector((state) => state.homeless);
+  const navigate = useNavigate();
 
-  console.log("form stepper", form);
+  const homeless = useSelector((state) => state.homeless);
 
   const steps = [
     { label: "Formulario 1" },
@@ -36,8 +35,6 @@ const MainComponent = () => {
   const handleBack = () => {
     setActiveIndex((prevIndex) => prevIndex - 1);
   };
-
-  console.log("form en padre=>", form);
 
   const handleFormData = (data) => {
     console.log("data stepts =>", data);
@@ -80,6 +77,7 @@ const MainComponent = () => {
       })
       .catch((err) => console.log(err));
   };
+  console.log("form stepper", form);
   return (
     <div>
       <Steps model={steps} activeIndex={activeIndex} />

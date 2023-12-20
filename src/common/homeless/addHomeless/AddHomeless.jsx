@@ -5,6 +5,7 @@ import useInput from "../../../hooks/useInput";
 import "./addHomeless.css";
 export default function AddHomeless({ form, handleFormData, setForm }) {
   const user = useSelector((state) => state.user);
+  console.log("user =>", user);
 
   const nombre = useInput(form.nombre || "");
   const apellido = useInput(form.apellido || "");
@@ -141,6 +142,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     nroDeContacto,
   ]);
 
+  //   // fotos: document.getElementById("fotoDePerfil").value // hacer condicional
+  // };
   // console.log("¿ARGENTINA? =>", paises[9]);
 
   /**
