@@ -5,8 +5,7 @@ const Comentarios = require("../models/Comentarios");
 const Usuarios = require("../models/Usuarios");
 const Notificaciones = require("../models/Notificaciones");
 const ContactoDeEmergencia = require("../models/ContactoDeEmergencia");
-const Followers = require("../models/Followers")
-
+const Followers = require("../models/Followers");
 
 // de uno a muchos(un usuario puede tener muchas homeless)
 Usuarios.hasMany(Homeless, { as: "homeless", foreignKey: "usuariosId" });
@@ -43,6 +42,6 @@ Comentarios.hasMany(Notificaciones, {
 });
 Notificaciones.belongsTo(Comentarios, { as: "comentario" });
 
- //* de a uno a muchos (un usuario puede tener muchos followers)
- Usuarios.hasMany(Followers, { as: "followers", foreignKey: "usuariosId" });
- Followers.belongsTo(Usuarios,{as:"usuarios"})
+//* de a uno a muchos (un usuario puede tener muchos followers)
+Usuarios.hasMany(Followers, { as: "followers", foreignKey: "usuariosId" });
+Followers.belongsTo(Usuarios, { as: "usuarios" });

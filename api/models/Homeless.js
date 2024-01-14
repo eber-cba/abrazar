@@ -28,16 +28,16 @@ Homeless.init(
       type: Sequelize.STRING,
     },
     necesidadesUrgentes: {
-      type: Sequelize.STRING,//array
+      type: Sequelize.STRING, //array
     },
     otrasNecesidades: {
-      type: Sequelize.STRING,//array
+      type: Sequelize.STRING, //array
     },
     sueños: {
       type: Sequelize.STRING,
     },
     fotos: {
-      type: Sequelize.STRING,//array - hasta 3 fotos
+      type: Sequelize.STRING, //array - hasta 3 fotos
     },
     apodo: {
       type: Sequelize.STRING,

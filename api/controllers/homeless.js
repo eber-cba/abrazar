@@ -7,10 +7,12 @@ const ContactoDeEmergencia = require("../models/ContactoDeEmergencia.js");
 class homelessControllers {
   static async createHomeless(req, res) {
     try {
-      const newHomeless = await Homeless.create(req.body);
+      console.log("back bodi", req.body);
+      const { usuariosId, ...rest } = req.body; // Desestructura usuariosID y el resto de los datos
+      const newHomeless = await Homeless.create({ ...rest, usuariosId }); // Asigna usuariosID al crear el nuevo objeto Homeless
       res.status(201).json(newHomeless);
     } catch (error) {
-      return res.send("credenciales incorrectas");
+      return res.status(400).send("credenciales incorrectas: " + error.message);
     }
   }
   static async deleteHomeless(req, res, next) {

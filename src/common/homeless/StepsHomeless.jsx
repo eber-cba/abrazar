@@ -14,6 +14,7 @@ const MainComponent = () => {
   const [nroDeContacto, setNroDeContacto] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const homeless = useSelector((state) => state.homeless);
 
@@ -40,43 +41,64 @@ const MainComponent = () => {
     console.log("data stepts =>", data);
     setForm(data);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postHomeless({ form }))
-      .then((data) => {
-        console.log("data guardada?=>", data);
-        // Limpiar el localStorage después de enviar los datos
-        localStorage.removeItem("nombre");
-        localStorage.removeItem("apellido");
-        localStorage.removeItem("img");
-        localStorage.removeItem("paiz");
-        localStorage.removeItem("edad");
-        localStorage.removeItem("apodo");
-        localStorage.removeItem("genero");
-        localStorage.removeItem("provincia");
-        localStorage.removeItem("localidad");
-        localStorage.removeItem("necesidadUrgente");
-        localStorage.removeItem("otraNecesidad");
-        localStorage.removeItem("sueños");
-        localStorage.removeItem("trabajo");
-        localStorage.removeItem("educacion");
-        localStorage.removeItem("problemaDeSalud");
-        localStorage.removeItem("medicamentos");
-        localStorage.removeItem("telefono");
-        localStorage.removeItem("datoExtra");
-        localStorage.removeItem("situacion");
-        localStorage.removeItem("contacto");
-        localStorage.removeItem("nroDeContacto");
-        // Agregar aquí la limpieza para otros campos que desees eliminar del localStorage
 
-        // Restablecer el estado del formulario a un objeto vacío
-        setForm({});
-        // Cambiar al primer índice después de finalizar
-        // setActiveIndex(0);
-      })
-      .catch((err) => console.log(err));
+    const updatedForm = { ...form };
+    const userId = user ? user.id : null;
+
+    if (userId) {
+      console.log("User ID:", userId);
+
+      // Modificar el objeto form para incluir el userId
+      updatedForm.userId = userId;
+      dispatch(postHomeless({ form: updatedForm }))
+        .then((data) => {
+          console.log("data guardada?=>", data);
+
+          const keysToKeep = [
+            "nombre",
+            "apellido",
+            "img",
+            "paiz",
+            "edad",
+            "apodo",
+            "genero",
+            "provincia",
+            "localidad",
+            "necesidadUrgente",
+            "otraNecesidad",
+            "sueños",
+            "trabajo",
+            "educacion",
+            "problemaDeSalud",
+            "medicamentos",
+            "telefono",
+            "datoExtra",
+            "situacion",
+            "contacto",
+            "nroDeContacto",
+          ];
+
+          // Limpiar el localStorage después de enviar los datos, manteniendo las claves específicas
+          Object.keys(form).forEach((key) => {
+            if (!keysToKeep.includes(key)) {
+              localStorage.removeItem(key);
+            }
+          });
+
+          // Restablecer el estado del formulario a un objeto vacío
+          setForm({});
+          // Cambiar al primer índice después de finalizar
+          // setActiveIndex(0);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log("El user ID no está disponible.");
+      // Lógica para manejar el escenario en el que el user ID no está disponible
+    }
   };
+
   console.log("form stepper", form);
   return (
     <div>
