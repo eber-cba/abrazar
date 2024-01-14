@@ -19,8 +19,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
   const [locali, setLocali] = useState([]);
   const provincia = useInput(form.provincia || "");
   const localidad = useInput(form.localidad || "");
-  const necesidadUrgente = useInput(form.necesidadUrgente || "");
-  const otraNecesidad = useInput(form.otraNecesidad || "");
+  const necesidadesUrgentes = useInput(form.necesidadesUrgentes || "");
+  const otrasNecesidades = useInput(form.otrasNecesidades || "");
   const sueños = useInput(form.sueños || "");
   const trabajo = useInput(form.trabajo || "");
   const educacion = useInput(form.educacion || "");
@@ -42,8 +42,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     { key: "genero", value: genero },
     { key: "provincia", value: provincia.value },
     { key: "localidad", value: localidad.value },
-    { key: "necesidadUrgente", value: necesidadUrgente.value },
-    { key: "otraNecesidad", value: otraNecesidad.value },
+    { key: "necesidadesUrgentes", value: necesidadesUrgentes.value },
+    { key: "otrasNecesidades", value: otrasNecesidades.value },
     { key: "sueños", value: sueños.value },
     { key: "trabajo", value: trabajo.value },
     { key: "educacion", value: educacion.value },
@@ -106,8 +106,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     localStorage.setItem("genero", genero);
     localStorage.setItem("provincia", provincia.value);
     localStorage.setItem("localidad", localidad.value);
-    localStorage.setItem("necesidadUrgente", necesidadUrgente.value);
-    localStorage.setItem("otraNecesidad", otraNecesidad.value);
+    localStorage.setItem("necesidadesUrgentes", necesidadesUrgentes.value);
+    localStorage.setItem("otrasNecesidades", otrasNecesidades.value);
     localStorage.setItem("sueños", sueños.value);
     localStorage.setItem("trabajo", trabajo.value);
     localStorage.setItem("educacion", educacion.value);
@@ -128,8 +128,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     genero,
     provincia,
     localidad,
-    necesidadUrgente,
-    otraNecesidad,
+    necesidadesUrgentes,
+    otrasNecesidades,
     sueños,
     trabajo,
     educacion,
@@ -295,8 +295,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  value={necesidadUrgente.value}
-                  onChange={necesidadUrgente.onChange}
+                  value={necesidadesUrgentes.value}
+                  onChange={necesidadesUrgentes.onChange}
                 />
               </label>
               <label>
@@ -304,8 +304,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  value={otraNecesidad.value}
-                  onChange={otraNecesidad.onChange}
+                  value={otrasNecesidades.value}
+                  onChange={otrasNecesidades.onChange}
                 />
               </label>
               <label>

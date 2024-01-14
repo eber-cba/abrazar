@@ -67,7 +67,7 @@ const MainComponent = () => {
             "genero",
             "provincia",
             "localidad",
-            "necesidadUrgente",
+            "necesidadesUrgentes",
             "otraNecesidad",
             "sueños",
             "trabajo",
