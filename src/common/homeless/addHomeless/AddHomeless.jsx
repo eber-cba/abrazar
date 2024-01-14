@@ -24,7 +24,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
   const sueños = useInput(form.sueños || "");
   const trabajo = useInput(form.trabajo || "");
   const educacion = useInput(form.educacion || "");
-  const problemaDeSalud = useInput(form.problemaDeSalud || "");
+  const problemasDeSalud = useInput(form.problemasDeSalud || "");
   const medicamentos = useInput(form.medicamentos || "");
   const telefono = useInput(form.telefono || "");
   const datoExtra = useInput(form.datoExtra || "");
@@ -47,7 +47,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     { key: "sueños", value: sueños.value },
     { key: "trabajo", value: trabajo.value },
     { key: "educacion", value: educacion.value },
-    { key: "problemaDeSalud", value: problemaDeSalud.value },
+    { key: "problemasDeSalud", value: problemasDeSalud.value },
     { key: "medicamentos", value: medicamentos.value },
     { key: "telefono", value: telefono.value },
     { key: "datoExtra", value: datoExtra.value },
@@ -111,7 +111,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     localStorage.setItem("sueños", sueños.value);
     localStorage.setItem("trabajo", trabajo.value);
     localStorage.setItem("educacion", educacion.value);
-    localStorage.setItem("problemaDeSalud", problemaDeSalud.value);
+    localStorage.setItem("problemasDeSalud", problemasDeSalud.value);
     localStorage.setItem("medicamentos", medicamentos.value);
     localStorage.setItem("telefono", telefono.value);
     localStorage.setItem("datoExtra", datoExtra.value);
@@ -133,7 +133,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     sueños,
     trabajo,
     educacion,
-    problemaDeSalud,
+    problemasDeSalud,
     medicamentos,
     telefono,
     datoExtra,
@@ -336,8 +336,8 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
                 <input
                   className='inputs'
                   type='text'
-                  value={problemaDeSalud.value}
-                  onChange={problemaDeSalud.onChange}
+                  value={problemasDeSalud.value}
+                  onChange={problemasDeSalud.onChange}
                 />
               </label>
               <label>
