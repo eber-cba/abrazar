@@ -61,7 +61,7 @@ const MainComponent = () => {
             "nombre",
             "apellido",
             "img",
-            "paiz",
+            "nacionalidad",
             "edad",
             "apodo",
             "genero",
@@ -91,7 +91,7 @@ const MainComponent = () => {
           // Restablecer el estado del formulario a un objeto vacío
           setForm({});
           // Cambiar al primer índice después de finalizar
-          // setActiveIndex(0);
+          setActiveIndex(0);
         })
         .catch((err) => console.log(err));
     } else {

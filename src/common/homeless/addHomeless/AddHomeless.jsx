@@ -10,7 +10,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
   const nombre = useInput(form.nombre || "");
   const apellido = useInput(form.apellido || "");
   const img = useInput(form.img || "");
-  const paiz = useInput(form.paiz || "");
+  const nacionalidad = useInput(form.nacionalidad || "");
   const edad = useInput(form.edad || "");
   const apodo = useInput(form.apodo || "");
   const [genero, setGenero] = useState(form.genero || "Prefiero no decirlo");
@@ -36,7 +36,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     { key: "nombre", value: nombre.value },
     { key: "apellido", value: apellido.value },
     { key: "img", value: img.value },
-    { key: "paiz", value: paiz.value },
+    { key: "nacionalidad", value: nacionalidad.value },
     { key: "edad", value: edad.value },
     { key: "apodo", value: apodo.value },
     { key: "genero", value: genero },
@@ -100,7 +100,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     localStorage.setItem("nombre", nombre.value);
     localStorage.setItem("apellido", apellido.value);
     localStorage.setItem("img", img.value);
-    localStorage.setItem("paiz", paiz.value);
+    localStorage.setItem("nacionalidad", nacionalidad.value);
     localStorage.setItem("edad", edad.value);
     localStorage.setItem("apodo", apodo.value);
     localStorage.setItem("genero", genero);
@@ -122,7 +122,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
     nombre,
     apellido,
     img,
-    paiz,
+    nacionalidad,
     edad,
     apodo,
     genero,
@@ -160,6 +160,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
    * *trabajo[listo]
    * *educacion[listo]
    */
+  console.log("nacionalidad => ", nacionalidad.value);
 
   return (
     <div>
@@ -257,7 +258,7 @@ export default function AddHomeless({ form, handleFormData, setForm }) {
               </div>
               <label>
                 Pais:
-                <select {...paiz} name='pais' id='pais'>
+                <select {...nacionalidad} name='pais' id='pais'>
                   <option></option>
                   {paises.map((pais, i) => (
                     <option key={i} value={pais.name.common}>
