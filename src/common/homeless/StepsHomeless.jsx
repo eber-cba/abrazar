@@ -43,6 +43,7 @@ const MainComponent = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Formulario a enviar:", form);
 
     const updatedForm = { ...form };
     const userId = user ? user.id : null;
@@ -51,7 +52,7 @@ const MainComponent = () => {
       console.log("User ID:", userId);
 
       // Modificar el objeto form para incluir el userId
-      updatedForm.userId = userId;
+      updatedForm.usuariosId = userId;
       dispatch(postHomeless({ form: updatedForm }))
         .then((data) => {
           console.log("data guardada?=>", data);

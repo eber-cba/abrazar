@@ -9,7 +9,10 @@ class homelessControllers {
     try {
       console.log("back bodi", req.body);
       const { usuariosId, ...rest } = req.body; // Desestructura usuariosID y el resto de los datos
+      console.log("usuariosId: =>>>>>", usuariosId);
+      console.log("rest:=>>>>>", rest);
       const newHomeless = await Homeless.create({ ...rest, usuariosId }); // Asigna usuariosID al crear el nuevo objeto Homeless
+      console.log("Nuevo Homeless:=>>>", newHomeless);
       res.status(201).json(newHomeless);
     } catch (error) {
       return res.status(400).send("credenciales incorrectas: " + error.message);
